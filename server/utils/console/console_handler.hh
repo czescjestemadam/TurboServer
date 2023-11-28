@@ -2,7 +2,7 @@
 #include "terminal_console.hh"
 #include "file_console.hh"
 
-#include <memory>
+#include <vector>
 
 namespace ConsoleHandler
 {
@@ -18,4 +18,6 @@ namespace ConsoleHandler
 
 	void log(const std::string& str);
 	void err(const std::string& str);
+
+	std::string system(const std::string& cmd);
 }

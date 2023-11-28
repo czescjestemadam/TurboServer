@@ -43,3 +43,23 @@ void ConsoleHandler::err(const std::string& str)
 	for (IConsole* con : consoles)
 		con->err(str);
 }
+
+
+std::string ConsoleHandler::system(const std::string& cmd)
+{
+	std::string str;
+	char buff[256];
+
+	FILE* file = popen(cmd.c_str(), "r");
+	if (file)
+	{
+		while (!feof(file))
+		{
+			if (fgets(buff, 256, file) != nullptr)
+				str.append(buff);
+		}
+		pclose(file);
+	}
+
+	return str;
+}
