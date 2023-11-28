@@ -1,0 +1,35 @@
+template<class ...T>
+inline void Logger::mdebug(const std::format_string<T...> format, T&& ...args)
+{
+	mdebug(std::vformat(format.get(), std::make_format_args(args...)));
+}
+
+template<class ...T>
+inline void Logger::debug(const std::format_string<T...> format, T&& ...args)
+{
+	debug(std::vformat(format.get(), std::make_format_args(args...)));
+}
+
+template<class ...T>
+inline void Logger::info(const std::format_string<T...> format, T&& ...args)
+{
+	info(std::vformat(format.get(), std::make_format_args(args...)));
+}
+
+template<class ...T>
+inline void Logger::warn(const std::format_string<T...> format, T&& ...args)
+{
+	warn(std::vformat(format.get(), std::make_format_args(args...)));
+}
+
+template<class ...T>
+inline void Logger::error(const std::format_string<T...> format, T&& ...args)
+{
+	error(std::vformat(format.get(), std::make_format_args(args...)));
+}
+
+template<class ...T>
+inline void Logger::crash(const std::format_string<T...> format, T&& ...args)
+{
+	crash(std::vformat(format.get(), std::make_format_args(args...)));
+}
