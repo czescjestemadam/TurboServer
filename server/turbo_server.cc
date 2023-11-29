@@ -193,3 +193,8 @@ const ProtocolVersion& TurboServer::getProtocolVersion()
 {
 	return ProtocolVersion::v1_20;
 }
+
+std::string TurboServer::getVersion()
+{
+	return "0.1";
+}

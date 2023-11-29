@@ -17,8 +17,6 @@
 #include <mutex>
 #include <condition_variable>
 
-constexpr const std::string VERSION = "0.1";
-
 class TurboServer
 {
 	Logger logger;
@@ -82,4 +80,6 @@ public:
 	static TurboServer* get();
 
 	static const ProtocolVersion& getProtocolVersion();
+
+	static std::string getVersion();
 };

@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 	}
 	else if (args.hasFlag("ver") || args.hasFlag("version"))
 	{
+		std::cout << "TurboServer v" + TurboServer::getVersion() << '\n';
 		return 0;
 	}
 
