@@ -1,6 +1,7 @@
 #include "logger.hh"
 
 #include "server/utils/console/console_handler.hh"
+#include "server/utils/stacktrace/stacktrace.hh"
 
 #include <iostream>
 #include <utility>
@@ -53,6 +54,16 @@ void Logger::error(std::string_view msg)
 void Logger::crash(std::string_view msg)
 {
 	log(LogLevel::CRASH, msg);
+}
+
+void Logger::stacktrace(const LogLevel& level, std::string_view msg)
+{
+	log(level, std::string(msg) + Stacktrace::get(16, 1).toString());
+}
+
+void Logger::stacktrace(const LogLevel& level, const std::function<std::string_view()>& func)
+{
+	log(level, std::string(func()) + Stacktrace::get(16, 1).toString());
 }
 
 const std::string& Logger::getName() const

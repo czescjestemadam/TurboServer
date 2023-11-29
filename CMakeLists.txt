@@ -220,11 +220,11 @@ add_executable(TurboServer
 	server/world/block/state/block_state.hh
 	server/config/velocity_config.cc
 	server/config/velocity_config.hh
-	server/db/idatabase.hh
-	server/db/idatabase.hh
 	server/utils/iserializable.hh
-	server/db/memory/memory_database.cc
-	server/db/memory/memory_database.hh
+	server/utils/stacktrace/stacktrace.cc
+	server/utils/stacktrace/stacktrace.hh
+	server/utils/stacktrace/stack_entry.cc
+	server/utils/stacktrace/stack_entry.hh
 )
 
 target_link_libraries(TurboServer z)

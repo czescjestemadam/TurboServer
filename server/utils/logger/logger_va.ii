@@ -1,3 +1,6 @@
+
+#include "logger.hh"
+
 template<class ...T>
 inline void Logger::mdebug(const std::format_string<T...> format, T&& ...args)
 {
@@ -32,4 +35,10 @@ template<class ...T>
 inline void Logger::crash(const std::format_string<T...> format, T&& ...args)
 {
 	crash(std::vformat(format.get(), std::make_format_args(args...)));
+}
+
+template<class... T>
+void Logger::stacktrace(const LogLevel& level, std::format_string<T...> format, T&& ... args)
+{
+	log(level, std::vformat(format.get(), std::make_format_args(args...)));
 }
