@@ -1,35 +1,41 @@
 #include "terminal_console.hh"
+#include "server/turbo_server.hh"
+#include "console_handler.hh"
 
 #include <iostream>
+#include <functional>
+#include <termios.h>
+
+TerminalConsole::~TerminalConsole()
+{
+	running = false;
+
+	termios ts{};
+	tcgetattr(STDIN_FILENO, &ts);
+	ts.c_lflag |= ICANON;
+	tcsetattr(STDIN_FILENO, TCSANOW, &ts);
+}
 
 void TerminalConsole::init()
 {
+	termios ts{};
+	tcgetattr(STDIN_FILENO, &ts);
+	ts.c_lflag &= ~ICANON;
+	tcsetattr(STDIN_FILENO, TCSANOW, &ts);
 
-}
-
-void TerminalConsole::uninit()
-{
-
-}
-
-bool TerminalConsole::writeOnly()
-{
-	return false;
+	running = true;
+	readerThread = std::thread(std::bind(&TerminalConsole::readerLoop, this));
+	readerThread.detach();
 }
 
 void TerminalConsole::log(const std::string& str)
 {
-	std::cout << colorReplacer(str) << '\n';
+	print(std::cout, str);
 }
 
 void TerminalConsole::err(const std::string& str)
 {
-	std::cout << colorReplacer(str) << '\n';
-}
-
-std::string TerminalConsole::readLine()
-{
-	return "line";
+	print(std::cerr, str);
 }
 
 std::string TerminalConsole::getName()
@@ -37,12 +43,148 @@ std::string TerminalConsole::getName()
 	return "Console";
 }
 
+void TerminalConsole::sendMessage(const std::string& msg)
+{
+	ConsoleHandler::log(msg);
+}
+
+void TerminalConsole::sendMessage(const std::vector<std::string>& msg)
+{
+	for (const std::string& str : msg)
+		log(str);
+}
+
 
 std::string TerminalConsole::colorReplacer(const std::string& str)
 {
 	std::string ret = str;
 
-	
+	for (int i = 0; i < 1024; i++)
+	{
+		ulong pos = ret.find("§");
+		if (pos >= ret.length())
+			break;
 
-	return ret;
+		char nextChar = ret[pos + 2];
+		const ChatFormat* fmt = ChatFormat::fromCode(nextChar);
+
+		ret.erase(pos, 3);
+		if (!fmt)
+			continue;
+
+		std::string toInsert = "\033[";
+
+		if (fmt->ansiResetPrefix())
+			toInsert += "0;";
+		toInsert += std::to_string(fmt->ansiCode) + "m";
+
+		ret.insert(pos, toInsert);
+	}
+
+	return ret + "\033[0m";
+}
+
+void TerminalConsole::readerLoop()
+{
+	enum state
+	{
+		text,
+		escape,
+		escape_bracket
+	} st = text;
+
+	while (running)
+	{
+		int c = std::getchar();
+
+		switch (st)
+		{
+			case text:
+				switch (c)
+				{
+					case 10: // enter
+						TurboServer::get()->getCommandManager().execute(this, line);
+						line.clear();
+						cursor = 0;
+						break;
+
+					case 127: // backspace
+						if (line.empty())
+							break;
+						line.erase(line.end() - 1);
+						--cursor;
+						break;
+
+					case 27: // escape
+						st = escape;
+						break;
+
+					default:
+						char cs[2] = { (char)c, 0 };
+						line.insert(cursor++, cs);
+						break;
+				}
+				break;
+
+			case escape:
+				if (c == '[')
+					st = escape_bracket;
+				break;
+
+			case escape_bracket:
+				switch (c)
+				{
+					case 'A': // up
+						break;
+
+					case 'B': // down
+						break;
+
+					case 'C': // right
+						if (cursor < line.length())
+							++cursor;
+						break;
+
+					case 'D': // left
+						if (cursor > 0)
+							--cursor;
+						break;
+
+					case 'H': // home
+						cursor = 0;
+						break;
+
+					case 'F': // end
+						cursor = line.length();
+						break;
+
+					default:
+						break;
+				}
+				st = text;
+				break;
+
+			default:
+				break;
+		}
+
+		printPrompt();
+	}
+}
+
+#define ERASE_TO_END "\033[K"
+#define MOVE_LEFT(x) "\033[" << x << "D"
+
+void TerminalConsole::printPrompt()
+{
+	std::cout << "\r> " + line + ERASE_TO_END;
+	if (cursor < line.length())
+		std::cout << MOVE_LEFT(line.length() - cursor);
+	std::cout.flush();
+}
+
+void TerminalConsole::print(std::ostream& os, const std::string& str)
+{
+	os << '\r' << colorReplacer(str) << std::endl;
+	printPrompt();
 }

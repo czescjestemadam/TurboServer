@@ -9,10 +9,13 @@ public:
 	std::string name;
 	bool isFormat;
 	int color;
+	int ansiCode;
 
 
-	ChatFormat(int id, char code, std::string name, int color);
-	ChatFormat(int id, char code, std::string name);
+	ChatFormat(int id, char code, std::string name, int color, int ansiCode);
+	ChatFormat(int id, char code, std::string name, int ansiCode);
+
+	bool ansiResetPrefix() const;
 
 	std::string toString() const;
 
@@ -22,8 +25,8 @@ public:
 	bool operator!=(const ChatFormat& rhs) const;
 
 
-	static const ChatFormat* byCode(char c);
-	static const ChatFormat* byName(const std::string& name);
+	static const ChatFormat* fromCode(char c);
+	static const ChatFormat* fromName(const std::string& name);
 
 
 	static ChatFormat BLACK;

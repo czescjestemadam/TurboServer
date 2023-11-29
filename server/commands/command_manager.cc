@@ -4,6 +4,9 @@
 
 bool CommandManager::execute(CommandSender* sender, const std::string& str)
 {
+	if (str.empty())
+		return false;
+
 	std::vector<std::string> args = StrUtils::split(StrUtils::trimc(str));
 	std::string alias = args.at(0);
 	return execute(sender, alias, args);

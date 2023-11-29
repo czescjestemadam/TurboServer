@@ -2,8 +2,8 @@
 
 #include "server/utils/console/console_handler.hh"
 #include "server/utils/stacktrace/stacktrace.hh"
+#include "server/chat/chat_format.hh"
 
-#include <iostream>
 #include <utility>
 #include <chrono>
 
@@ -16,7 +16,9 @@ void Logger::log(const LogLevel& level, std::string_view msg)
 	std::string str = std::format("[{}] [{}/{}]: {}", getTime(), name, level.getName(), msg);
 
 	if (level >= LogLevel::ERROR)
-		ConsoleHandler::err(str);
+		ConsoleHandler::err(ChatFormat::RED + str);
+	else if (level >= LogLevel::WARN)
+		ConsoleHandler::log(ChatFormat::YELLOW + str);
 	else
 		ConsoleHandler::log(str);
 }
