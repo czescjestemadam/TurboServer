@@ -1,7 +1,7 @@
 #include "console_handler.hh"
+#include "server/run_args.hh"
 
 #include <vector>
-#include <iostream>
 #include <algorithm>
 
 static std::vector<IConsole*> consoles;
@@ -9,13 +9,8 @@ static std::vector<IConsole*> consoles;
 void ConsoleHandler::init()
 {
 	add(terminalConsole);
-	add(fileConsole);
-}
-
-void ConsoleHandler::uninit()
-{
-	remove(terminalConsole);
-	remove(fileConsole);
+	if (!RunArgs::get()->hasFlag("no-logs"))
+		add(fileConsole);
 }
 
 

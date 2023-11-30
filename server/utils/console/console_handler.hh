@@ -11,7 +11,6 @@ namespace ConsoleHandler
 
 
 	void init();
-	void uninit();
 
 	void add(IConsole& con);
 	void remove(IConsole& con);
