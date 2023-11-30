@@ -79,6 +79,8 @@ public:
 
 	static TurboServer* get();
 
+	static CommandSender* getConsoleSender();
+
 	static const ProtocolVersion& getProtocolVersion();
 
 	static std::string getVersion();

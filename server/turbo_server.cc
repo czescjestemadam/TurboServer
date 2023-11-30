@@ -189,6 +189,11 @@ TurboServer* TurboServer::get()
 	return instance;
 }
 
+CommandSender* TurboServer::getConsoleSender()
+{
+	return &ConsoleHandler::terminalConsole;
+}
+
 const ProtocolVersion& TurboServer::getProtocolVersion()
 {
 	return ProtocolVersion::v1_20;
