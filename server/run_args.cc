@@ -4,8 +4,12 @@
 #include <algorithm>
 #include <format>
 
+static RunArgs* inst;
+
 RunArgs::RunArgs(int argc, char **argv)
 {
+	inst = this;
+
 	argsStr.reserve(argc - 1);
 	for (int i = 1; i < argc; i++)
 		argsStr.emplace_back(argv[i]);
@@ -60,4 +64,10 @@ std::optional<std::string> RunArgs::getArg(const std::string& name) const
 std::string RunArgs::toString() const
 {
 	return std::format("RunArgs[flags={}, args={}]", StrUtils::vectorToString(flags), StrUtils::mapToString(args));
+}
+
+
+RunArgs* RunArgs::get()
+{
+	return inst;
 }

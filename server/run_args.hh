@@ -20,4 +20,6 @@ public:
 	std::optional<std::string> getArg(const std::string& name) const;
 
 	std::string toString() const;
+
+	static RunArgs* get();
 };
