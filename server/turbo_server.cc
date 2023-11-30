@@ -1,4 +1,5 @@
 #include "turbo_server.hh"
+#include "utils/console/console_handler.hh"
 
 static TurboServer* instance;
 
