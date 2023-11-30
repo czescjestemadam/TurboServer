@@ -10,7 +10,7 @@ public:
 	explicit PlayPacketHandler(PlayerSocket* sock);
 
 	void handle(Packet& packet) override;
-	void disconnect(ChatComponent chat) override;
+	void disconnect(ChatComponent* chat) override;
 
 private:
 	void handleConfirmTeleport(Packet& packet);

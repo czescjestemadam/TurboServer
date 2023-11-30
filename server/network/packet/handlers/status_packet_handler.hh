@@ -8,7 +8,7 @@ public:
 	explicit StatusPacketHandler(PlayerSocket* sock);
 
 	void handle(Packet& packet) override;
-	void disconnect(ChatComponent chat) override;
+	void disconnect(ChatComponent* chat) override;
 
 private:
 	void handleStatusReq(Packet& packet);

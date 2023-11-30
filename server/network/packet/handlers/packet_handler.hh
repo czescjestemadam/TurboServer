@@ -17,5 +17,5 @@ public:
 	virtual ~PacketHandler() = default;
 
 	virtual void handle(Packet& packet) = 0;
-	virtual void disconnect(ChatComponent chat) = 0;
+	virtual void disconnect(ChatComponent* chat) = 0;
 };

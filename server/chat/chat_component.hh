@@ -26,4 +26,5 @@ protected:
 
 public:
 
+	virtual std::string toString() const;
 };

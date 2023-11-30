@@ -20,9 +20,8 @@ void StatusPacketHandler::handle(Packet& packet)
 	}
 }
 
-void StatusPacketHandler::disconnect(ChatComponent chat)
+void StatusPacketHandler::disconnect(ChatComponent* chat)
 {
-
 }
 
 

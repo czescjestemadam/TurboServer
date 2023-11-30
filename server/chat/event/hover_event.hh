@@ -6,6 +6,8 @@
 class HoverEvent
 {
 public:
+	virtual ~HoverEvent() = default;
+
 	virtual std::string getAction() = 0;
 
 	// return inner element

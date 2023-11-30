@@ -29,17 +29,18 @@ void NetworkManager::stop()
 	epollSocket.close();
 	epollWaitThread.join();
 
+	ChatComponent serverStopComponent;
 	for (PlayerSocket& sock : players)
+	{
+		sock.handler->disconnect(&serverStopComponent);
 		sock.close();
+	}
 }
 
 void NetworkManager::tick()
 {
 	for (PlayerSocket& sock : players)
 		sock.tick();
-
-//	for (std::unique_ptr<PacketHandler>& handler : handlers)
-//		handler->tick();
 }
 
 PlayerSocket* NetworkManager::getPlayerSocket(int fd)

@@ -219,9 +219,11 @@ void PlayPacketHandler::handle(Packet& packet)
 	}
 }
 
-void PlayPacketHandler::disconnect(ChatComponent chat)
+void PlayPacketHandler::disconnect(ChatComponent* chat)
 {
-
+	PacketBuff buff;
+	buff.writeString(chat->toString());
+	sock->write({ PacketId::Play::DISCONNECT, std::move(buff) });
 }
 
 

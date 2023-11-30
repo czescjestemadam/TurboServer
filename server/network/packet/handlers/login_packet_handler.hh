@@ -9,7 +9,7 @@ public:
 	explicit LoginPacketHandler(PlayerSocket* sock);
 
 	void handle(Packet& packet) override;
-	void disconnect(ChatComponent chat) override;
+	void disconnect(ChatComponent* chat) override;
 
 private:
 	void handleLoginStart(Packet& packet);

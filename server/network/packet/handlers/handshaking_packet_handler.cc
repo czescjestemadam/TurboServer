@@ -22,7 +22,6 @@ void HandshakingPacketHandler::handle(Packet& packet)
 	}
 }
 
-void HandshakingPacketHandler::disconnect(ChatComponent chat)
+void HandshakingPacketHandler::disconnect(ChatComponent* chat)
 {
-
 }

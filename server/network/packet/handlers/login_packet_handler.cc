@@ -39,9 +39,11 @@ void LoginPacketHandler::handle(Packet& packet)
 	}
 }
 
-void LoginPacketHandler::disconnect(ChatComponent chat)
+void LoginPacketHandler::disconnect(ChatComponent* chat)
 {
-
+	PacketBuff buff;
+	buff.writeString(chat->toString());
+	sock->write({ PacketId::Login::DISCONNECT, std::move(buff) });
 }
 
 void LoginPacketHandler::handleLoginStart(Packet& packet)
