@@ -11,4 +11,6 @@ public:
 	void listen();
 
 	PlayerSocket accept();
+
+	void forceClose();
 };

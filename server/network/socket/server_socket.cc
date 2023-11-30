@@ -29,8 +29,22 @@ PlayerSocket ServerSocket::accept()
 	uint addrLen = sizeof(sockaddr);
 	int playerFd = ::accept(fd, reinterpret_cast<sockaddr*>(&addr), &addrLen);
 
+	if (!isValid())
+		return { -1, {}};
+
 	if (playerFd < 0)
 		throw SocketException("::accept returned invalid fd: " + std::to_string(playerFd));
 
 	return { playerFd, addr };
+}
+
+void ServerSocket::forceClose()
+{
+	close();
+
+	// self connect to unblock ::accept
+	Socket sock;
+	sock.create();
+	connect(sock.getFd(), reinterpret_cast<sockaddr*>(&addr), sizeof(addr));
+	sock.close();
 }
