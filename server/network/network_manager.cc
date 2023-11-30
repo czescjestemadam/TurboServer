@@ -23,8 +23,11 @@ void NetworkManager::stop()
 	logger.info("Stopping");
 	running = false;
 
-	serverSocket.close();
+	serverSocket.forceClose();
+	accepterThread.join();
+
 	epollSocket.close();
+	epollWaitThread.join();
 
 	for (PlayerSocket& sock : players)
 		sock.close();
@@ -69,6 +72,9 @@ void NetworkManager::acceptLoop()
 		try
 		{
 			PlayerSocket sock = serverSocket.accept();
+			if (!running)
+				return;
+
 			sock.setOptions();
 
 			logger.debug("accepted {}", sock.getAddress());

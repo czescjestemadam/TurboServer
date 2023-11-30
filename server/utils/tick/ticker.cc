@@ -13,8 +13,7 @@ void Ticker::start()
 
 	running = true;
 
-	th = std::thread([this]
-	{ tickLoop(); });
+	th = std::thread(std::bind(&Ticker::tickLoop, this));
 }
 
 void Ticker::stop()
@@ -23,7 +22,7 @@ void Ticker::stop()
 		return;
 
 	running = false;
-
+	th.join();
 }
 
 

@@ -9,11 +9,6 @@
 TerminalConsole::~TerminalConsole()
 {
 	running = false;
-
-	termios ts{};
-	tcgetattr(STDIN_FILENO, &ts);
-	ts.c_lflag |= ICANON;
-	tcsetattr(STDIN_FILENO, TCSANOW, &ts);
 }
 
 void TerminalConsole::init()
@@ -24,8 +19,7 @@ void TerminalConsole::init()
 	tcsetattr(STDIN_FILENO, TCSANOW, &ts);
 
 	running = true;
-	readerThread = std::thread(std::bind(&TerminalConsole::readerLoop, this));
-	readerThread.detach();
+	readerThread = std::jthread(std::bind(&TerminalConsole::readerLoop, this));
 }
 
 void TerminalConsole::log(const std::string& str)

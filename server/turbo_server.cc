@@ -40,6 +40,9 @@ void TurboServer::start()
 
 void TurboServer::stop()
 {
+	if (!running)
+		return;
+
 	logger.info("Stopping");
 
 	ticker.stop();

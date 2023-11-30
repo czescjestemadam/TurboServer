@@ -8,7 +8,7 @@
 
 class TerminalConsole : public IConsole, public CommandSender
 {
-	std::thread readerThread;
+	std::jthread readerThread;
 	bool running = false;
 
 	std::string line;
