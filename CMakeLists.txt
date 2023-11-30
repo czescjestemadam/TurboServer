@@ -225,6 +225,8 @@ add_executable(TurboServer
 	server/utils/stacktrace/stacktrace.hh
 	server/utils/stacktrace/stack_entry.cc
 	server/utils/stacktrace/stack_entry.hh
+	server/utils/console/stdin_socket.cc
+	server/utils/console/stdin_socket.hh
 )
 
 target_link_libraries(TurboServer z)

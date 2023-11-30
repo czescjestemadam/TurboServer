@@ -1,6 +1,7 @@
 #pragma once
 #include "iconsole.hh"
 #include "server/commands/command_sender.hh"
+#include "server/network/socket/epoll_socket.hh"
 
 #include <thread>
 #include <mutex>
@@ -8,6 +9,7 @@
 
 class TerminalConsole : public IConsole, public CommandSender
 {
+	EpollSocket epoll;
 	std::jthread readerThread;
 	bool running = false;
 

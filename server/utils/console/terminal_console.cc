@@ -1,6 +1,7 @@
 #include "terminal_console.hh"
 #include "server/turbo_server.hh"
 #include "console_handler.hh"
+#include "stdin_socket.hh"
 
 #include <iostream>
 #include <functional>
@@ -23,7 +24,13 @@ void TerminalConsole::init()
 	std::signal(SIGTSTP, &sigtstpHandler);
 
 	running = true;
+
+	epoll.create();
+	StdinSocket sock;
+	epoll.add(sock);
+
 	readerThread = std::jthread(std::bind(&TerminalConsole::readerLoop, this));
+	readerThread.detach();
 }
 
 void TerminalConsole::log(const std::string& str)
@@ -93,80 +100,84 @@ void TerminalConsole::readerLoop()
 
 	while (running)
 	{
-		int c = std::getchar();
-
-		switch (st)
+		std::vector<epoll_event> events = epoll.wait();
+		for (epoll_event& e : events)
 		{
-			case text:
-				switch (c)
-				{
-					case 10: // enter
-						TurboServer::get()->getCommandManager().execute(this, line);
-						line.clear();
-						cursor = 0;
-						break;
+			int c = std::getchar();
 
-					case 127: // backspace
-						if (line.empty())
+			switch (st)
+			{
+				case text:
+					switch (c)
+					{
+						case 10: // enter
+							TurboServer::get()->getCommandManager().execute(this, line);
+							line.clear();
+							cursor = 0;
 							break;
-						line.erase(line.end() - 1);
-						--cursor;
-						break;
 
-					case 27: // escape
-						st = escape;
-						break;
-
-					default:
-						char cs[2] = { (char)c, 0 };
-						line.insert(cursor++, cs);
-						break;
-				}
-				break;
-
-			case escape:
-				if (c == '[')
-					st = escape_bracket;
-				break;
-
-			case escape_bracket:
-				switch (c)
-				{
-					case 'A': // up
-						break;
-
-					case 'B': // down
-						break;
-
-					case 'C': // right
-						if (cursor < line.length())
-							++cursor;
-						break;
-
-					case 'D': // left
-						if (cursor > 0)
+						case 127: // backspace
+							if (line.empty())
+								break;
+							line.erase(line.end() - 1);
 							--cursor;
-						break;
+							break;
 
-					case 'H': // home
-						cursor = 0;
-						break;
+						case 27: // escape
+							st = escape;
+							break;
 
-					case 'F': // end
-						cursor = line.length();
-						break;
+						default:
+							char cs[2] = { (char)c, 0 };
+							line.insert(cursor++, cs);
+							break;
+					}
+					break;
 
-					default:
-						break;
-				}
-				st = text;
-				break;
+				case escape:
+					if (c == '[')
+						st = escape_bracket;
+					break;
 
-			default:
-				break;
+				case escape_bracket:
+					switch (c)
+					{
+						case 'A': // up
+							break;
+
+						case 'B': // down
+							break;
+
+						case 'C': // right
+							if (cursor < line.length())
+								++cursor;
+							break;
+
+						case 'D': // left
+							if (cursor > 0)
+								--cursor;
+							break;
+
+						case 'H': // home
+							cursor = 0;
+							break;
+
+						case 'F': // end
+							cursor = line.length();
+							break;
+
+						default:
+							break;
+					}
+					st = text;
+					break;
+
+				default:
+					break;
+			}
+
+			printPrompt();
 		}
-
-		printPrompt();
 	}
 }
 
