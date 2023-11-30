@@ -33,4 +33,7 @@ private:
 	void readerLoop();
 	inline void printPrompt();
 	inline void print(std::ostream& os, const std::string& str);
+
+	static void sigintHandler(int i);
+	static void sigtstpHandler(int i);
 };

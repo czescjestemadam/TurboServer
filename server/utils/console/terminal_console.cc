@@ -5,6 +5,7 @@
 #include <iostream>
 #include <functional>
 #include <termios.h>
+#include <csignal>
 
 TerminalConsole::~TerminalConsole()
 {
@@ -17,6 +18,9 @@ void TerminalConsole::init()
 	tcgetattr(STDIN_FILENO, &ts);
 	ts.c_lflag &= ~ICANON;
 	tcsetattr(STDIN_FILENO, TCSANOW, &ts);
+
+	std::signal(SIGINT, &sigintHandler);
+	std::signal(SIGTSTP, &sigtstpHandler);
 
 	running = true;
 	readerThread = std::jthread(std::bind(&TerminalConsole::readerLoop, this));
@@ -181,4 +185,28 @@ void TerminalConsole::print(std::ostream& os, const std::string& str)
 {
 	os << '\r' << colorReplacer(str) << std::endl;
 	printPrompt();
+}
+
+
+void TerminalConsole::sigintHandler(int i)
+{
+	std::cout << "\rpress again to stop the server\n";
+
+	static std::chrono::steady_clock::time_point last;
+	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+
+	if (now - last < std::chrono::milliseconds(400))
+	{
+		std::cout << "\rresetting sigint handler\n";
+		std::signal(SIGINT, SIG_DFL);
+		TurboServer::get()->stop();
+	}
+	last = now;
+
+	ConsoleHandler::terminalConsole.printPrompt();
+}
+
+void TerminalConsole::sigtstpHandler(int i)
+{
+
 }
