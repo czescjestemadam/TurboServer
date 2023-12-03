@@ -8,6 +8,14 @@ int main(int argc, char* argv[])
 
 	if (args.hasFlag("help"))
 	{
+		std::cout << "TurboServer v" + TurboServer::getVersion() << "\n\n"
+				  << "Usage: TurboServer [options]\n\n"
+				  << "Options:\n"
+				  << " --help                 shows help\n"
+				  << " --ver                  shows TurboServer version\n"
+				  << " --default-configs      skips loading/saving configs, using default\n"
+				  << " --no-logs              skips logging to file\n";
+
 		return 0;
 	}
 	else if (args.hasFlag("ver") || args.hasFlag("version"))
