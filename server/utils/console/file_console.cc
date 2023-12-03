@@ -7,6 +7,7 @@
 FileConsole::~FileConsole()
 {
 	running = false;
+	logQueueCv.notify_one();
 }
 
 void FileConsole::init()
@@ -55,8 +56,11 @@ void FileConsole::writerLoop()
 	while (running)
 	{
 		std::unique_lock lock(logQueueMx);
-		while (logQueue.empty())
+		while (logQueue.empty() && running)
 			logQueueCv.wait(lock);
+
+		if (!running)
+			return;
 
 		std::string str = logQueue.front();
 		logQueue.pop_front();
