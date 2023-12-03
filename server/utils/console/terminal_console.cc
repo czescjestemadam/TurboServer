@@ -111,7 +111,7 @@ void TerminalConsole::readerLoop()
 					switch (c)
 					{
 						case 10: // enter
-							TurboServer::get()->getCommandManager().execute(this, line);
+							TurboServer::get()->getCommandManager().execute(TurboServer::getConsoleSender(), line);
 							line.clear();
 							cursor = 0;
 							break;

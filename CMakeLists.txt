@@ -227,6 +227,12 @@ add_executable(TurboServer
 	server/utils/stacktrace/stack_entry.hh
 	server/utils/console/stdin_socket.cc
 	server/utils/console/stdin_socket.hh
+	server/commands/server/stop_command.cc
+	server/commands/server/stop_command.hh
+	server/commands/server/tps_command.cc
+	server/commands/server/tps_command.hh
+	server/commands/server/mspt_command.cc
+	server/commands/server/mspt_command.hh
 )
 
 target_link_libraries(TurboServer z)

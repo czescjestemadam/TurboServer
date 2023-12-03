@@ -73,3 +73,8 @@ std::string TickTimes::toString(int num) const
 {
 	return std::format("{:.2f}/{:.2f}/{:.2f}", getMin(num), getMax(num), getAvg(num));
 }
+
+std::string TickTimes::toTpsString(int num) const
+{
+	return std::format("{:.2f}/{:.2f}/{:.2f}", std::min(1000 / getMin(num), 20.f), std::min(1000 / getMax(num), 20.f), std::min(1000 / getAvg(num), 20.f));
+}

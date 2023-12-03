@@ -25,7 +25,7 @@ void TurboServer::start()
 
 	// world
 
-	// command
+	commandManager.registerCommands();
 
 	NetworkConfig& net = configManager.getNetworkConfig();
 	networkManager.start(net.serverIp, net.serverPort);

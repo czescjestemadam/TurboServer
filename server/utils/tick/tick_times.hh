@@ -20,4 +20,7 @@ public:
 
 	// min/max/avg
 	std::string toString(int num) const;
+
+	// min/max/avg
+	std::string toTpsString(int num) const;
 };
