@@ -8,7 +8,6 @@ StopCommand::StopCommand() : Command("stop", "turboserver.cmd.stop")
 
 bool StopCommand::execute(CommandSender* sender, const std::string& alias, const std::vector<std::string>& args)
 {
-	sender->sendMessage(std::format("console: {}; sender: {}", (void*)TurboServer::getConsoleSender(), (void*)sender));
 	if (TurboServer::getConsoleSender() != sender)
 		sender->sendMessage(ChatFormat::RED + "Stopping");
 	TurboServer::get()->stop();
