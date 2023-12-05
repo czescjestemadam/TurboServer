@@ -55,7 +55,7 @@ public:
 	const RunArgs& getRunArgs();
 
 	bool isRunning() const;
-	std::chrono::time_point<std::chrono::system_clock> getStartTime() const;
+	std::chrono::system_clock::time_point getStartTime() const;
 
 	std::vector<std::unique_ptr<Entity>>& getEntities();
 	Entity* getEntity(int id);

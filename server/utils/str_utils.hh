@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <format>
+#include <chrono>
 
 namespace StrUtils
 {
@@ -37,4 +38,6 @@ namespace StrUtils
 
 		return '[' + join(strs, ", ") + ']';
 	}
+
+	std::string formatUptime(const std::chrono::system_clock::duration& duration);
 }

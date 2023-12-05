@@ -233,6 +233,8 @@ add_executable(TurboServer
 	server/commands/server/tps_command.hh
 	server/commands/server/mspt_command.cc
 	server/commands/server/mspt_command.hh
+	server/commands/server/uptime_command.cc
+	server/commands/server/uptime_command.hh
 )
 
 target_link_libraries(TurboServer z)

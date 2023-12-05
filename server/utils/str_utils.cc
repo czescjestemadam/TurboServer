@@ -58,3 +58,21 @@ std::string StrUtils::join(const std::vector<std::string>& strings, const std::s
 
 	return str;
 }
+
+std::string StrUtils::formatUptime(const std::chrono::system_clock::duration& duration)
+{
+	std::string str;
+
+	ulong seconds = std::chrono::duration_cast<std::chrono::seconds>(duration).count();
+	uint s = seconds % 60;
+
+	ulong minutes = seconds / 60;
+	uint m = minutes % 60;
+
+	ulong hours = minutes / 60;
+	uint h = hours % 24;
+
+	ulong days = hours / 24;
+
+	return std::format("{} days {:02}:{:02}:{:02}", days, h, m, s);
+}

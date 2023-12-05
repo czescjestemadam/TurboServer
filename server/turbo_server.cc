@@ -73,7 +73,7 @@ bool TurboServer::isRunning() const
 	return running;
 }
 
-std::chrono::time_point<std::chrono::system_clock> TurboServer::getStartTime() const
+std::chrono::system_clock::time_point TurboServer::getStartTime() const
 {
 	return startTime;
 }

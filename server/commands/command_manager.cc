@@ -5,12 +5,14 @@
 #include "server/stop_command.hh"
 #include "server/tps_command.hh"
 #include "server/mspt_command.hh"
+#include "server/uptime_command.hh"
 
 void CommandManager::registerCommands()
 {
 	registerCommand(std::make_unique<StopCommand>());
 	registerCommand(std::make_unique<TpsCommand>());
 	registerCommand(std::make_unique<MsptCommand>());
+	registerCommand(std::make_unique<UptimeCommand>());
 }
 
 void CommandManager::registerCommand(std::unique_ptr<Command>&& cmd)
