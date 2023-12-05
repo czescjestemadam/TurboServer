@@ -85,5 +85,7 @@ void FileConsole::updateOfs()
 			ofs.close();
 
 		ofs.open(file, std::ios::out | std::ios::app);
+
+		std::filesystem::create_symlink(nextFile, "logs/latest.log");
 	}
 }
