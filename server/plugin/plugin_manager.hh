@@ -10,6 +10,9 @@ class PluginManager
 	std::vector<std::unique_ptr<IPlugin>> plugins;
 
 public:
+	void loadAll();
+	void unloadAll();
+
 	bool load(const std::string& name);
 	void unload(const std::string& name);
 
@@ -20,4 +23,7 @@ public:
 	void reload(const std::string& name);
 
 	bool isEnabled(const std::string& name) const;
+
+	std::vector<std::string> getPlugins() const;
+	std::vector<std::string> listPluginsDir() const;
 };

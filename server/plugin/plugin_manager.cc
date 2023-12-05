@@ -1,5 +1,21 @@
 #include "plugin_manager.hh"
 
+#include <filesystem>
+
+static std::filesystem::path PLUGINS_DIR = std::filesystem::current_path() / "plugins";
+
+void PluginManager::loadAll()
+{
+	for (const std::string& name : listPluginsDir())
+		load(name);
+}
+
+void PluginManager::unloadAll()
+{
+	for (const std::string& name : getPlugins())
+		unload(name);
+}
+
 bool PluginManager::load(const std::string& name)
 {
 	//todo
@@ -8,10 +24,17 @@ bool PluginManager::load(const std::string& name)
 
 void PluginManager::unload(const std::string& name)
 {
-	disable(name);
-
 	IPlugin* plg = getPlugin(name);
-	//todo
+	if (!plg)
+		return;
+
+	if (plg->isEnabled())
+	{
+		plg->setEnabled(false);
+		plg->onDisable();
+	}
+
+	//todo unload lib
 }
 
 IPlugin* PluginManager::getPlugin(const std::string& name) const
@@ -56,4 +79,28 @@ bool PluginManager::isEnabled(const std::string& name) const
 {
 	const IPlugin* plugin = getPlugin(name);
 	return plugin && plugin->isEnabled();
+}
+
+std::vector<std::string> PluginManager::getPlugins() const
+{
+	std::vector<std::string> names;
+
+	for (const std::unique_ptr<IPlugin>& plg : plugins)
+		names.push_back(plg->getName());
+
+	return names;
+}
+
+
+std::vector<std::string> PluginManager::listPluginsDir() const
+{
+	std::vector<std::string> names;
+
+	for (auto& dir : std::filesystem::directory_iterator(PLUGINS_DIR))
+	{
+		if (dir.is_directory())
+			names.push_back(dir.path().filename().string());
+	}
+
+	return names;
 }
