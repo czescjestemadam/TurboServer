@@ -19,6 +19,7 @@ public:
 	bool operator==(const PunishmentType& rhs) const;
 	bool operator!=(const PunishmentType& rhs) const;
 
+	static PunishmentType* fromId(int id);
 	static PunishmentType* fromName(const std::string& name);
 
 	static PunishmentType WARN;

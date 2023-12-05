@@ -43,6 +43,15 @@ bool PunishmentType::operator!=(const PunishmentType& rhs) const
 }
 
 
+PunishmentType* PunishmentType::fromId(int id)
+{
+	for (PunishmentType* type : types)
+		if (type->id == id)
+			return type;
+
+	return nullptr;
+}
+
 PunishmentType* PunishmentType::fromName(const std::string& name)
 {
 	for (PunishmentType* type : types)
