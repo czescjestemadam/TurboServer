@@ -111,7 +111,8 @@ void TerminalConsole::readerLoop()
 					switch (c)
 					{
 						case 10: // enter
-							TurboServer::get()->getCommandManager().execute(TurboServer::getConsoleSender(), line);
+							if (!TurboServer::get()->getCommandManager().execute(TurboServer::getConsoleSender(), line))
+								print(std::cout, ChatFormat::RED + "Unknown command");
 							line.clear();
 							cursor = 0;
 							break;
