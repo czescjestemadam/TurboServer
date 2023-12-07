@@ -1,7 +1,10 @@
 #include "nbt_tag_list.hh"
 
-NbtTagList::NbtTagList(const std::vector<std::unique_ptr<NbtTag>>& arr) : arr(arr)
+NbtTagList::NbtTagList(const std::vector<std::unique_ptr<NbtTag>>& arr)
 {
+	this->arr.reserve(arr.size());
+	for (const std::unique_ptr<NbtTag>& tag : arr)
+		this->arr.push_back(tag->copy());
 }
 
 std::unique_ptr<NbtTag> NbtTagList::copy()

@@ -1,7 +1,10 @@
 #include "nbt_tag_compound.hh"
 
-NbtTagCompound::NbtTagCompound(const std::unordered_map<std::string, std::unique_ptr<NbtTag>>& tags) : tags(tags)
+NbtTagCompound::NbtTagCompound(const std::unordered_map<std::string, std::unique_ptr<NbtTag>>& tags)
 {
+	this->tags.reserve(tags.size());
+	for (auto& [key, val] : tags)
+		this->tags[key] = val->copy();
 }
 
 std::unique_ptr<NbtTag> NbtTagCompound::copy()

@@ -34,5 +34,5 @@ NBT::TagPtr NBT::read(std::istream& is)
 {
 
 
-	return ;
+	return nullptr;
 }
