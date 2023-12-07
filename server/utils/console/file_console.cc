@@ -75,7 +75,7 @@ void FileConsole::updateOfs()
 	std::time_t t = std::time(nullptr);
 	std::tm* now = std::localtime(&t);
 
-	std::string nextFile = std::format("logs/{}-{}-{}.log", now->tm_year + 1900, now->tm_mon + 1, now->tm_mday);
+	std::string nextFile = std::format("{}-{}-{}.log", now->tm_year + 1900, now->tm_mon + 1, now->tm_mday);
 
 	if (file != nextFile)
 	{
@@ -84,8 +84,12 @@ void FileConsole::updateOfs()
 		if (ofs.is_open())
 			ofs.close();
 
-		ofs.open(file, std::ios::out | std::ios::app);
+		ofs.open("logs/" + file, std::ios::out | std::ios::app);
 
-		std::filesystem::create_symlink(nextFile, "logs/latest.log");
+		constexpr const char* LINK = "logs/latest.log";
+		if (std::filesystem::exists(LINK))
+			std::filesystem::remove(LINK);
+
+		std::filesystem::create_symlink(nextFile, LINK);
 	}
 }
