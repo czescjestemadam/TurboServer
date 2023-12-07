@@ -2,7 +2,7 @@
 
 enum NbtTagType
 {
-	UNKNOWN = -1,
+	UNKNOWN_TAG = -1,
 
 	END,
 	BYTE,

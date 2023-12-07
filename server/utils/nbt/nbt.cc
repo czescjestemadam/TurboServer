@@ -24,7 +24,7 @@ NBT::TagPtr NBT::tagFromType(NbtTagType type)
 		case INT_ARRAY: return std::make_unique<NbtTagIntArray>();
 		case LONG_ARRAY: return std::make_unique<NbtTagLongArray>();
 
-		case UNKNOWN:
+		case UNKNOWN_TAG:
 		default:
 			return nullptr;
 	}

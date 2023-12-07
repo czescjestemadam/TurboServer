@@ -2,7 +2,7 @@
 
 enum NetworkState
 {
-	UNKNOWN = -1,
+	UNKNOWN_STATE = -1,
 	HANDSHAKING,
 	STATUS,
 	LOGIN,
