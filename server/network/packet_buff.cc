@@ -91,6 +91,16 @@ void PacketBuff::writeShort(short v)
 	PACKETBUFF_WRITE(short);
 }
 
+ushort PacketBuff::readShortU()
+{
+	PACKETBUFF_READ(ushort);
+}
+
+void PacketBuff::writeShortU(ushort v)
+{
+	PACKETBUFF_WRITE(ushort);
+}
+
 int PacketBuff::readInt()
 {
 	PACKETBUFF_READ(int);

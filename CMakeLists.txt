@@ -182,6 +182,7 @@ add_executable(TurboServer
 	server/utils/profiler/profiler.hh
 	server/utils/nbt/nbt.cc
 	server/utils/nbt/nbt.hh
+	server/utils/nbt/tag/nbt_tag_type.hh
 	server/bans/ban_manager.cc
 	server/bans/ban_manager.hh
 	server/bans/punishment_type.cc
@@ -233,6 +234,20 @@ add_executable(TurboServer
 	server/commands/server/mspt_command.hh
 	server/commands/server/uptime_command.cc
 	server/commands/server/uptime_command.hh
+	server/utils/nbt/tag/nbt_tag.hh
+	server/utils/nbt/tag/nbt_tag_primitive.cc
+	server/utils/nbt/tag/nbt_tag_primitive.hh
+	server/utils/nbt/tag/nbt_tag_array.cc
+	server/utils/nbt/tag/nbt_tag_array.hh
+	server/utils/nbt/tag/nbt_tag_list.cc
+	server/utils/nbt/tag/nbt_tag_list.hh
+	server/utils/nbt/tag/nbt_tag_compound.cc
+	server/utils/nbt/tag/nbt_tag_compound.hh
+	server/utils/nbt/tag/nbt_tag_end.cc
+	server/utils/nbt/tag/nbt_tag_end.hh
+	server/utils/nbt/snbt.cc
+	server/utils/nbt/snbt.hh
+	server/utils/nbt/tag/nbt_tag.cc
 )
 
 target_link_libraries(TurboServer z)

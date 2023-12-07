@@ -29,6 +29,9 @@ public:
 	short readShort();
 	void writeShort(short v);
 
+	ushort readShortU();
+	void writeShortU(ushort v);
+
 	int readInt();
 	void writeInt(int v);
 

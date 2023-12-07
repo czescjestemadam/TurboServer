@@ -13,7 +13,7 @@ class PlayerSocket : public Socket
 {
 public:
 	int age = 0;
-	NetworkState state = UNKNOWN;
+	NetworkState state = UNKNOWN_STATE;
 	bool compressionEnabled = false;
 	int compressionThreshold = -1;
 	uint packetsSent = 0;
