@@ -5,8 +5,8 @@ class NbtTagEnd : public NbtTag
 {
 public:
 	std::unique_ptr<NbtTag> copy() override;
-	void write(PacketBuff& buff) override;
+	void read(PacketBuff& buff, bool name) override;
+	void write(PacketBuff& buff, bool name) override;
 
 	NbtTagType getType() override;
-	int getSizeBytes() override;
 };

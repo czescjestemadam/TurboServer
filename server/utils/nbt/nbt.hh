@@ -5,13 +5,13 @@
 
 namespace NBT
 {
-	using TagPtr = std::unique_ptr<NbtTag>;
-
-	TagPtr tagFromType(NbtTagType type);
+	std::unique_ptr<NbtTag> tagFromType(NbtTagType type);
 
 
-	TagPtr read(std::istream& is);
+	std::unique_ptr<NbtTag> readStr(const std::string& str, std::unique_ptr<NbtTag>* parent = nullptr);
+	std::unique_ptr<NbtTag> read(PacketBuff & buff, std::unique_ptr<NbtTag> * parent = nullptr);
+	std::unique_ptr<NbtTag> readCopy(PacketBuff buff, std::unique_ptr<NbtTag>* parent = nullptr);
 
-	std::string write(TagPtr tag);
-	std::ostream& operator<<(std::ostream& os, TagPtr tag);
+	PacketBuff write(std::unique_ptr<NbtTag>& tag);
+	void write(PacketBuff& buff, std::unique_ptr<NbtTag>& tag);
 }

@@ -1,17 +1,33 @@
 #include "nbt_tag_primitive.hh"
 
+#include <iostream>
+#include <netinet/in.h>
+
 // byte
-NbtTagByte::NbtTagByte(byte_t val) : NbtTagPrimitive(val)
+NbtTagByte::NbtTagByte(const std::string& name, byte_t val) : NbtTagPrimitive(name, val)
 {
 }
 
 std::unique_ptr<NbtTag> NbtTagByte::copy()
 {
-	return std::make_unique<NbtTagByte>(val);
+	return std::make_unique<NbtTagByte>(name, val);
 }
 
-void NbtTagByte::write(PacketBuff& buff)
+void NbtTagByte::read(PacketBuff& buff, bool name)
 {
+	if (name)
+		readName(buff);
+	val = buff.readByte();
+}
+
+void NbtTagByte::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
 	buff.writeByte(val);
 }
 
@@ -20,23 +36,31 @@ NbtTagType NbtTagByte::getType()
 	return BYTE;
 }
 
-int NbtTagByte::getSizeBytes()
-{
-	return 9;
-}
-
 // short
-NbtTagShort::NbtTagShort(short val) : NbtTagPrimitive(val)
+NbtTagShort::NbtTagShort(const std::string& name, short val) : NbtTagPrimitive(name, val)
 {
 }
 
 std::unique_ptr<NbtTag> NbtTagShort::copy()
 {
-	return std::make_unique<NbtTagShort>(val);
+	return std::make_unique<NbtTagShort>(name, val);
 }
 
-void NbtTagShort::write(PacketBuff& buff)
+void NbtTagShort::read(PacketBuff& buff, bool name)
 {
+	if (name)
+		readName(buff);
+	val = buff.readShort();
+}
+
+void NbtTagShort::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
 	buff.writeShort(val);
 }
 
@@ -45,23 +69,31 @@ NbtTagType NbtTagShort::getType()
 	return SHORT;
 }
 
-int NbtTagShort::getSizeBytes()
-{
-	return 10;
-}
-
 // int
-NbtTagInt::NbtTagInt(int val) : NbtTagPrimitive(val)
+NbtTagInt::NbtTagInt(const std::string& name, int val) : NbtTagPrimitive(name, val)
 {
 }
 
 std::unique_ptr<NbtTag> NbtTagInt::copy()
 {
-	return std::make_unique<NbtTagInt>(val);
+	return std::make_unique<NbtTagInt>(name, val);
 }
 
-void NbtTagInt::write(PacketBuff& buff)
+void NbtTagInt::read(PacketBuff& buff, bool name)
 {
+	if (name)
+		readName(buff);
+	val = buff.readInt();
+}
+
+void NbtTagInt::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
 	buff.writeInt(val);
 }
 
@@ -70,23 +102,31 @@ NbtTagType NbtTagInt::getType()
 	return INT;
 }
 
-int NbtTagInt::getSizeBytes()
-{
-	return 12;
-}
-
 // long
-NbtTagLong::NbtTagLong(long val) : NbtTagPrimitive(val)
+NbtTagLong::NbtTagLong(const std::string& name, long val) : NbtTagPrimitive(name, val)
 {
 }
 
 std::unique_ptr<NbtTag> NbtTagLong::copy()
 {
-	return std::make_unique<NbtTagLong>(val);
+	return std::make_unique<NbtTagLong>(name, val);
 }
 
-void NbtTagLong::write(PacketBuff& buff)
+void NbtTagLong::read(PacketBuff& buff, bool name)
 {
+	if (name)
+		readName(buff);
+	val = buff.readLong();
+}
+
+void NbtTagLong::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
 	buff.writeLong(val);
 }
 
@@ -95,23 +135,31 @@ NbtTagType NbtTagLong::getType()
 	return LONG;
 }
 
-int NbtTagLong::getSizeBytes()
-{
-	return 16;
-}
-
 // float
-NbtTagFloat::NbtTagFloat(float val) : NbtTagPrimitive(val)
+NbtTagFloat::NbtTagFloat(const std::string& name, float val) : NbtTagPrimitive(name, val)
 {
 }
 
 std::unique_ptr<NbtTag> NbtTagFloat::copy()
 {
-	return std::make_unique<NbtTagFloat>(val);
+	return std::make_unique<NbtTagFloat>(name, val);
 }
 
-void NbtTagFloat::write(PacketBuff& buff)
+void NbtTagFloat::read(PacketBuff& buff, bool name)
 {
+	if (name)
+		readName(buff);
+	val = buff.readFloat();
+}
+
+void NbtTagFloat::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
 	buff.writeFloat(val);
 }
 
@@ -120,24 +168,32 @@ NbtTagType NbtTagFloat::getType()
 	return FLOAT;
 }
 
-int NbtTagFloat::getSizeBytes()
-{
-	return 12;
-}
-
 // double
-NbtTagDouble::NbtTagDouble(double val) : NbtTagPrimitive(val)
+NbtTagDouble::NbtTagDouble(const std::string& name, double val) : NbtTagPrimitive(name, val)
 {
 }
 
 std::unique_ptr<NbtTag> NbtTagDouble::copy()
 {
-	return std::make_unique<NbtTagDouble>(val);
+	return std::make_unique<NbtTagDouble>(name, val);
 }
 
-void NbtTagDouble::write(PacketBuff& buff)
+void NbtTagDouble::read(PacketBuff& buff, bool name)
 {
-	buff.writeFloat((float)val);
+	if (name)
+		readName(buff);
+	val = buff.readDouble();
+}
+
+void NbtTagDouble::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
+	buff.writeDouble(val);
 }
 
 NbtTagType NbtTagDouble::getType()
@@ -145,33 +201,43 @@ NbtTagType NbtTagDouble::getType()
 	return DOUBLE;
 }
 
-int NbtTagDouble::getSizeBytes()
-{
-	return 16;
-}
-
 // string
-NbtTagString::NbtTagString(const std::string& val) : NbtTagPrimitive(val)
+NbtTagString::NbtTagString(const std::string& name, const std::string& val) : NbtTagPrimitive(name, val)
 {
 }
 
 std::unique_ptr<NbtTag> NbtTagString::copy()
 {
-	return std::make_unique<NbtTagString>(val);
+	return std::make_unique<NbtTagString>(name, val);
 }
 
-void NbtTagString::write(PacketBuff& buff)
+void NbtTagString::read(PacketBuff& buff, bool name)
 {
-	buff.writeString(val);
+	if (name)
+		readName(buff);
+
+	ushort len = ntohs(buff.readShortU());
+
+	char cstr[len + 1];
+	buff.readBytes(reinterpret_cast<byte_t*>(cstr), len);
+	cstr[len] = 0;
+
+	val = cstr;
+}
+
+void NbtTagString::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
+	writeStr(buff, val);
 }
 
 NbtTagType NbtTagString::getType()
 {
 	return STRING;
-}
-
-int NbtTagString::getSizeBytes()
-{
-	return 36 + 2 * val.length();
 }
 

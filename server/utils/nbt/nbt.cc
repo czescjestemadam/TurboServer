@@ -6,19 +6,21 @@
 #include "tag/nbt_tag_list.hh"
 #include "tag/nbt_tag_compound.hh"
 
-NBT::TagPtr NBT::tagFromType(NbtTagType type)
+#include <iostream>
+
+std::unique_ptr<NbtTag> NBT::tagFromType(NbtTagType type)
 {
 	switch (type)
 	{
 		case END: return std::make_unique<NbtTagEnd>();
-		case BYTE: return std::make_unique<NbtTagByte>(0);
-		case SHORT: return std::make_unique<NbtTagShort>(0);
-		case INT: return std::make_unique<NbtTagInt>(0);
-		case LONG: return std::make_unique<NbtTagLong>(0);
-		case FLOAT: return std::make_unique<NbtTagFloat>(0);
-		case DOUBLE: return std::make_unique<NbtTagDouble>(0);
+		case BYTE: return std::make_unique<NbtTagByte>("", 0);
+		case SHORT: return std::make_unique<NbtTagShort>("", 0);
+		case INT: return std::make_unique<NbtTagInt>("", 0);
+		case LONG: return std::make_unique<NbtTagLong>("", 0);
+		case FLOAT: return std::make_unique<NbtTagFloat>("", 0);
+		case DOUBLE: return std::make_unique<NbtTagDouble>("", 0);
 		case BYTE_ARRAY: return std::make_unique<NbtTagByteArray>();
-		case STRING: return std::make_unique<NbtTagString>("");
+		case STRING: return std::make_unique<NbtTagString>("", "");
 		case LIST: return std::make_unique<NbtTagList>();
 		case COMPOUND: return std::make_unique<NbtTagCompound>();
 		case INT_ARRAY: return std::make_unique<NbtTagIntArray>();
@@ -30,9 +32,38 @@ NBT::TagPtr NBT::tagFromType(NbtTagType type)
 	}
 }
 
-NBT::TagPtr NBT::read(std::istream& is)
+
+std::unique_ptr<NbtTag> NBT::readStr(const std::string& str, std::unique_ptr<NbtTag>* parent)
 {
+	PacketBuff buff((byte_t*)str.c_str(), str.length());
+	return readCopy(buff, parent);
+}
+
+std::unique_ptr<NbtTag> NBT::read(PacketBuff& buff, std::unique_ptr<NbtTag>* parent)
+{
+	NbtTagType type = (NbtTagType)buff.readByte();
+
+	std::unique_ptr<NbtTag> tag = tagFromType(type);
+	tag->read(buff, true);
+
+	return tag;
+}
+
+std::unique_ptr<NbtTag> NBT::readCopy(PacketBuff buff, std::unique_ptr<NbtTag>* parent)
+{
+	return read(buff, parent);
+}
 
 
-	return nullptr;
+PacketBuff NBT::write(std::unique_ptr<NbtTag>& tag)
+{
+	PacketBuff buff;
+	write(buff, tag);
+	return buff;
+}
+
+
+void NBT::write(PacketBuff& buff, std::unique_ptr<NbtTag>& tag)
+{
+	tag->write(buff, true);
 }

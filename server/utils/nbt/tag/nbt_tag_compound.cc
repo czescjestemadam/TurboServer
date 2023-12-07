@@ -1,49 +1,51 @@
 #include "nbt_tag_compound.hh"
+#include "server/utils/nbt/nbt.hh"
 
-NbtTagCompound::NbtTagCompound(const std::unordered_map<std::string, std::unique_ptr<NbtTag>>& tags)
+NbtTagCompound::NbtTagCompound(const std::string& name, const std::map<std::string, std::unique_ptr<NbtTag>>& tags)
 {
-	this->tags.reserve(tags.size());
+	this->name = name;
+
+//	this->tags.reserve(tags.size()); // unordered_map
 	for (auto& [key, val] : tags)
 		this->tags[key] = val->copy();
 }
 
 std::unique_ptr<NbtTag> NbtTagCompound::copy()
 {
-	return std::make_unique<NbtTagCompound>(tags);
+	return std::make_unique<NbtTagCompound>(name, tags);
 }
 
-void NbtTagCompound::write(PacketBuff& buff)
+void NbtTagCompound::read(PacketBuff& buff, bool name)
 {
-	for (auto& [ key, val ] : tags)
-		writeTag(key, val, buff);
+	if (name)
+		readName(buff);
 
-	buff.writeByte(0);
+	NbtTagType type;
+	while ((type = (NbtTagType)buff.readByte()) != 0)
+	{
+		std::unique_ptr<NbtTag> tag = NBT::tagFromType(type);
+		tag->read(buff, true);
+
+		std::string& key = tag->name;
+		tags[key] = std::move(tag);
+	}
+}
+
+void NbtTagCompound::write(PacketBuff& buff, bool name)
+{
+	if (name)
+	{
+		buff.writeByte(getType());
+		writeName(buff);
+	}
+
+	for (auto& [key, val] : tags)
+		val->write(buff, true);
+
+	buff.writeByte(END);
 }
 
 NbtTagType NbtTagCompound::getType()
 {
 	return COMPOUND;
-}
-
-int NbtTagCompound::getSizeBytes()
-{
-	int size = 48;
-
-	for (auto& [ key, val ] : tags)
-	{
-		size += 28 + 2 * key.length();
-		size += 36 + val->getSizeBytes();
-	}
-
-	return 48;
-}
-
-void NbtTagCompound::writeTag(const std::string& key, std::unique_ptr<NbtTag>& tag, PacketBuff& buff)
-{
-	buff.writeByte(tag->getType());
-	if (tag->getType())
-	{
-		buff.writeBytes((byte_t*)key.c_str(), key.length());
-		tag->write(buff);
-	}
 }

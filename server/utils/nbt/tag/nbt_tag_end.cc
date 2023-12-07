@@ -5,8 +5,13 @@ std::unique_ptr<NbtTag> NbtTagEnd::copy()
 	return std::make_unique<NbtTagEnd>();
 }
 
-void NbtTagEnd::write(PacketBuff& buff)
+void NbtTagEnd::read(PacketBuff& buff, bool name)
 {
+}
+
+void NbtTagEnd::write(PacketBuff& buff, bool name)
+{
+	buff.writeByte(getType());
 }
 
 NbtTagType NbtTagEnd::getType()
@@ -14,7 +19,3 @@ NbtTagType NbtTagEnd::getType()
 	return END;
 }
 
-int NbtTagEnd::getSizeBytes()
-{
-	return 8;
-}

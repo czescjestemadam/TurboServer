@@ -247,6 +247,7 @@ add_executable(TurboServer
 	server/utils/nbt/tag/nbt_tag_end.hh
 	server/utils/nbt/snbt.cc
 	server/utils/nbt/snbt.hh
+	server/utils/nbt/tag/nbt_tag.cc
 )
 
 target_link_libraries(TurboServer z)
