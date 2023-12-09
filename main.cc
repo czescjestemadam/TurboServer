@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 				  << "Usage: TurboServer [options]\n\n"
 				  << "Options:\n"
 				  << " --help                 shows help\n"
-				  << " --ver                  shows TurboServer version\n"
+				  << " --version --ver        shows TurboServer version\n"
 				  << " --default-configs      skips loading/saving configs, using default\n"
 				  << " --no-logs              skips logging to file\n";
 
