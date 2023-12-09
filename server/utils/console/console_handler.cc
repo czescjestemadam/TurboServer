@@ -28,12 +28,18 @@ void ConsoleHandler::remove(IConsole& con)
 
 void ConsoleHandler::log(const std::string& str)
 {
+	if (consoles.empty())
+		std::cout << str << std::endl;
+
 	for (IConsole* con : consoles)
 		con->log(str);
 }
 
 void ConsoleHandler::err(const std::string& str)
 {
+	if (consoles.empty())
+		std::cerr << str << std::endl;
+
 	for (IConsole* con : consoles)
 		con->err(str);
 }
