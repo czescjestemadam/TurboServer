@@ -1,5 +1,5 @@
 #pragma once
-#include "i_plugin.hh"
+#include "iplugin.hh"
 
 #include <vector>
 #include <memory>

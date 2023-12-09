@@ -57,7 +57,7 @@ add_executable(TurboServer
 	server/world/world_manager.hh
 	server/world/info/world_type.cc
 	server/world/info/world_type.hh
-	server/plugin/i_plugin.hh
+	server/plugin/iplugin.hh
 	server/plugin/plugin_manager.cc
 	server/plugin/plugin_manager.hh
 	server/network/packet/packet_id.hh
