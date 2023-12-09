@@ -21,6 +21,7 @@ public:
 	bool hideItemItemmetaVisuals = false;
 	bool hidePlayersOutOfFrustum = false;
 
+
 	void load(nlohmann::json&& j) override;
 	nlohmann::json save() override;
 

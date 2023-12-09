@@ -19,7 +19,6 @@ public:
 	int packetSenderThreads = 2;
 
 
-
 	void load(nlohmann::json&& j) override;
 	nlohmann::json save() override;
 
