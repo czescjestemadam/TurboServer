@@ -9,7 +9,5 @@ public:
 	virtual ~HoverEvent() = default;
 
 	virtual std::string getAction() = 0;
-
-	// return inner element
-	virtual nlohmann::json serializeContents() = 0;
+	virtual std::string getContents() = 0;
 };

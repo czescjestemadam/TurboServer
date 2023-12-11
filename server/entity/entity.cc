@@ -16,4 +16,9 @@ void Entity::tick()
 	++age;
 }
 
+std::string Entity::getName() const
+{
+	return customName.empty() ? type.getName() : customName;
+}
+
 

@@ -1,6 +1,8 @@
 #include "network_manager.hh"
 #include "socket/socket_exception.hh"
 #include "socket/socket_closed_exception.hh"
+#include "server/chat/text_chat_component.hh"
+#include "server/turbo_server.hh"
 
 void NetworkManager::start(const std::string& ip, short port)
 {
@@ -29,10 +31,11 @@ void NetworkManager::stop()
 	epollSocket.close();
 	epollWaitThread.join();
 
-	ChatComponent serverStopComponent;
+	ServerConfig& serverCfg = TurboServer::get()->getConfigManager().getServerConfig();
+	std::unique_ptr<ChatComponent> serverStopComponent = std::make_unique<TextChatComponent>(serverCfg.serverClosedMessage);
 	for (PlayerSocket& sock : players)
 	{
-		sock.handler->disconnect(&serverStopComponent);
+		sock.handler->disconnect(serverStopComponent.get());
 		sock.close();
 	}
 }

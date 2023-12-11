@@ -8,4 +8,5 @@ class EntityType
 public:
 
 
+	const std::string& getName() const;
 };

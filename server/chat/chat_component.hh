@@ -9,7 +9,7 @@
 
 class ChatComponent
 {
-protected:
+public:
 	bool bold;
 	bool italic;
 	bool underline;
@@ -22,9 +22,14 @@ protected:
 	ClickEvent clickEvent;
 	std::unique_ptr<HoverEvent> hoverEvent;
 
-	std::vector<ChatComponent> extra;
+	std::vector<std::unique_ptr<ChatComponent>> extra;
 
-public:
 
-	virtual std::string toString() const;
+	virtual ~ChatComponent() = default;
+
+	std::string toString() const;
+
+protected:
+	virtual nlohmann::json json() const = 0;
+	nlohmann::json baseJson() const;
 };

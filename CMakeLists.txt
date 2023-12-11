@@ -191,7 +191,6 @@ add_executable(TurboServer
 	server/bans/punishment.hh
 	server/bans/punishment_builder.cc
 	server/bans/punishment_builder.hh
-	server/chat/chat_component.cc
 	server/chat/chat_component.hh
 	server/chat/chat_font.cc
 	server/chat/chat_font.hh
@@ -249,6 +248,16 @@ add_executable(TurboServer
 	server/utils/nbt/snbt.hh
 	server/utils/nbt/tag/nbt_tag.cc
 	server/utils/cache/cached_getter.hh
+	server/chat/text_chat_component.cc
+	server/chat/text_chat_component.hh
+	server/chat/translation_chat_component.cc
+	server/chat/translation_chat_component.hh
+	server/chat/keybind_chat_component.cc
+	server/chat/keybind_chat_component.hh
+	server/chat/score_chat_component.cc
+	server/chat/score_chat_component.hh
+	server/chat/chat_component.cc
+	server/chat/chat_component_builder.hh
 )
 
 target_link_libraries(TurboServer z)

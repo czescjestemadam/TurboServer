@@ -17,6 +17,7 @@ public:
 
 	bool ansiResetPrefix() const;
 
+	std::string getName() const;
 	std::string toString() const;
 
 

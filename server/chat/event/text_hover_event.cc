@@ -9,7 +9,7 @@ std::string TextHoverEvent::getAction()
 	return "show_text";
 }
 
-nlohmann::json TextHoverEvent::serializeContents()
+std::string TextHoverEvent::getContents()
 {
-	return { text };
+	return text;
 }

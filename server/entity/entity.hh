@@ -12,6 +12,8 @@ public:
 	uint id = -1;
 	UUID uuid;
 
+	std::string customName;
+
 	bool invulnerable;
 
 	int age;
@@ -36,6 +38,8 @@ public:
 
 
 	virtual void tick();
+
+	std::string getName() const;
 
 //	virtual void damage(/*source,*/ float amount);
 //	virtual void kill();

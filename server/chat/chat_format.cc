@@ -21,6 +21,11 @@ bool ChatFormat::ansiResetPrefix() const
 	return !isFormat;
 }
 
+std::string ChatFormat::getName() const
+{
+	return name;
+}
+
 std::string ChatFormat::toString() const
 {
 	static std::string PREFIX = "§";

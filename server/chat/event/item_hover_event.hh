@@ -10,5 +10,5 @@ public:
 	explicit ItemHoverEvent(const ItemStack& item);
 
 	std::string getAction() override;
-	nlohmann::json serializeContents() override;
+	std::string getContents() override;
 };

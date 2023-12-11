@@ -9,7 +9,7 @@ std::string ItemHoverEvent::getAction()
 	return "show_item";
 }
 
-nlohmann::json ItemHoverEvent::serializeContents()
+std::string ItemHoverEvent::getContents()
 {
-	return {}; // todo serializers itemstack
+	return "";
 }

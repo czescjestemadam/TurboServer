@@ -1,5 +1,7 @@
 #include "entity_hover_event.hh"
 
+#include <format>
+
 EntityHoverEvent::EntityHoverEvent(Entity* entity) : entity(entity)
 {
 }
@@ -9,7 +11,7 @@ std::string EntityHoverEvent::getAction()
 	return "show_entity";
 }
 
-nlohmann::json EntityHoverEvent::serializeContents()
+std::string EntityHoverEvent::getContents()
 {
-	return {}; // todo
+	return std::format("{{id:{},name:{}}}", entity->uuid.toString(), entity->getName());
 }

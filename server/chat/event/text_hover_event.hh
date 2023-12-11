@@ -3,11 +3,11 @@
 
 class TextHoverEvent : public HoverEvent
 {
-	std::string text; // todo change to TextChatComponent
+	std::string text;
 
 public:
 	explicit TextHoverEvent(std::string text);
 
 	std::string getAction() override;
-	nlohmann::json serializeContents() override;
+	std::string getContents() override;
 };

@@ -10,5 +10,5 @@ public:
 	explicit EntityHoverEvent(Entity* entity);
 
 	std::string getAction() override;
-	nlohmann::json serializeContents() override;
+	std::string getContents() override;
 };
