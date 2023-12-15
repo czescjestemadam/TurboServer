@@ -1,4 +1,5 @@
 #include "server/turbo_server.hh"
+#include "server/utils/PID.hh"
 #include "server/utils/console/console_handler.hh"
 
 int main(int argc, char* argv[])
@@ -24,6 +25,14 @@ int main(int argc, char* argv[])
 		return 0;
 	}
 
+	if (PID::readFile() > 0)
+	{
+		std::cout << "TurboServer is already running in this directory\n";
+		return 1;
+	}
+
+	PID::writeFile();
+
 	ConsoleHandler::init();
 
 	Logger logger("TurboServer");
@@ -31,6 +40,8 @@ int main(int argc, char* argv[])
 
 	TurboServer server(std::move(logger), std::move(args));
 	server.start();
+
+	PID::removeFile();
 
 	return 0;
 }

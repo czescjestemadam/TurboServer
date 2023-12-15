@@ -260,6 +260,8 @@ add_executable(TurboServer
 	server/chat/chat_component_builder.hh
 	server/utils/hash.cc
 	server/utils/hash.hh
+	server/utils/PID.cc
+	server/utils/PID.hh
 )
 
 target_link_libraries(TurboServer z crypto)
