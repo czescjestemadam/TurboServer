@@ -258,8 +258,10 @@ add_executable(TurboServer
 	server/chat/score_chat_component.hh
 	server/chat/chat_component.cc
 	server/chat/chat_component_builder.hh
+	server/utils/hash.cc
+	server/utils/hash.hh
 )
 
-target_link_libraries(TurboServer z)
+target_link_libraries(TurboServer z crypto)
 
 target_include_directories(TurboServer PRIVATE "./")

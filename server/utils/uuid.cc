@@ -1,4 +1,5 @@
 #include "uuid.hh"
+#include "hash.hh"
 
 #include <random>
 #include <format>
@@ -106,9 +107,12 @@ UUID UUID::parse(const std::string& str)
 
 UUID UUID::fromString(const std::string& str)
 {
-	// todo uuid v3 md5 hash
+	UUID id{};
+	Hash::md5((byte_t*)str.c_str(), str.length(), id.bytes);
 
-	return { 4, 4 };
+	id.setVersion(3);
+
+	return id;
 }
 
 UUID UUID::nil()
