@@ -2,32 +2,8 @@
 #include "server/utils/PID.hh"
 #include "server/utils/console/console_handler.hh"
 
-// #include "server/events/event_listener.hh"
-#include "server/events/ievent.hh"
-
-class TestEvent : public IEvent<TestEvent>
-{
-public:
-	std::string str;
-};
-
-class TestEventListener : public EventListener<TestEvent>
-{
-public:
-	void onEvent(TestEvent& e) override
-	{
-		std::cout << "ev str: " << e.str << std::endl;
-	}
-};
-
 int main(int argc, char* argv[])
 {
-	TestEventListener listener;
-
-
-
-	return 0;
-
 	RunArgs args(argc, argv);
 	args.parse();
 
