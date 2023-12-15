@@ -117,9 +117,6 @@ add_executable(TurboServer
 	server/inventory/inventory_type.hh
 	server/world/generators/structure_generator.cc
 	server/world/generators/structure_generator.hh
-	server/events/event.cc
-	server/events/event.hh
-	server/events/event_listener.cc
 	server/events/event_listener.hh
 	server/entity/player/game_mode.cc
 	server/entity/player/game_mode.hh
@@ -262,6 +259,9 @@ add_executable(TurboServer
 	server/utils/hash.hh
 	server/utils/PID.cc
 	server/utils/PID.hh
+	server/events/ievent.hh
+	server/events/icancelable_event.hh
+	server/events/icancelable_event.hh
 )
 
 target_link_libraries(TurboServer z crypto)
