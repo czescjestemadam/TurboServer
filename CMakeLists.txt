@@ -258,6 +258,8 @@ add_executable(TurboServer
 	server/utils/hash.hh
 	server/utils/pid.cc
 	server/utils/pid.hh
+	server/commands/server/version_command.cc
+	server/commands/server/version_command.hh
 )
 
 target_link_libraries(TurboServer z crypto)

@@ -6,6 +6,7 @@
 #include "server/tps_command.hh"
 #include "server/mspt_command.hh"
 #include "server/uptime_command.hh"
+#include "server/version_command.hh"
 
 void CommandManager::registerCommands()
 {
@@ -13,6 +14,7 @@ void CommandManager::registerCommands()
 	registerCommand(std::make_unique<TpsCommand>());
 	registerCommand(std::make_unique<MsptCommand>());
 	registerCommand(std::make_unique<UptimeCommand>());
+	registerCommand(std::make_unique<VersionCommand>());
 }
 
 void CommandManager::registerCommand(std::unique_ptr<Command>&& cmd)
