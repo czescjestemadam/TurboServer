@@ -260,6 +260,9 @@ add_executable(TurboServer
 	server/utils/pid.hh
 	server/commands/server/version_command.cc
 	server/commands/server/version_command.hh
+	server/events/ievent.hh
+	server/events/ievent_listener.hh
+	server/events/event_handler.hh
 )
 
 target_link_libraries(TurboServer z crypto)
