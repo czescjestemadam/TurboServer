@@ -44,7 +44,7 @@ class TurboServer
 public:
 	TurboServer(Logger&& logger, RunArgs&& args);
 	TurboServer(const TurboServer&) = delete;
-	~TurboServer();
+	TurboServer(TurboServer&&) = delete;
 
 	void start();
 	void stop();

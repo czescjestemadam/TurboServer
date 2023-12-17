@@ -14,8 +14,6 @@ TurboServer::TurboServer(Logger&& logger, RunArgs&& args) : logger(logger), args
 		configManager.init("configs");
 }
 
-TurboServer::~TurboServer() = default;
-
 
 void TurboServer::start()
 {
