@@ -37,8 +37,8 @@ void StatusPacketHandler::handleStatusReq(Packet& packet)
 	};
 	j["players"] = {
 			{ "max",    sCfg.maxPlayers },
-			{ "online", -1 }, // todo
-			{ "sample", {}}
+			{ "online", TurboServer::get()->getPlayerList().getPlayerCount() },
+			{ "sample", {}} // todo
 	};
 	j["description"] = {
 			{ "text", sCfg.motd }

@@ -16,6 +16,8 @@ public:
 	PlayerEntity* getPlayer(const std::string& name) const;
 	PlayerEntity* getPlayer(const UUID& id) const;
 
+	int getPlayerCount() const;
+
 	void addPlayer(std::unique_ptr<PlayerEntity>&& player);
 
 private:

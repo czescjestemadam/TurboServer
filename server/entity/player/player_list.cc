@@ -49,6 +49,12 @@ PlayerEntity* PlayerList::getPlayer(const UUID& id) const
 }
 
 
+int PlayerList::getPlayerCount() const
+{
+	return players.size();
+}
+
+
 void PlayerList::addPlayer(std::unique_ptr<PlayerEntity>&& player)
 {
 	players.push_back(std::move(player));
