@@ -2,7 +2,8 @@
 #include "entity_type.hh"
 #include "../utils/uuid.hh"
 #include "../utils/vec.hh"
-#include "server/world/world.hh"
+
+class World;
 
 class Entity
 {
