@@ -7,6 +7,8 @@
 class Entity
 {
 public:
+	virtual ~Entity() = default;
+
 	EntityType type;
 
 	uint id = -1;

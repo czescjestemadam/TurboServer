@@ -4,6 +4,11 @@ PlayerEntity::PlayerEntity(PlayerSocket* socket) : LivingEntity({}), socket(sock
 {
 }
 
+void PlayerEntity::tick()
+{
+	LivingEntity::tick();
+}
+
 void PlayerEntity::setGameMode(GameMode* mode)
 {
 	previousGameMode = gameMode;

@@ -34,4 +34,7 @@ public:
 
 
 	explicit LivingEntity(const EntityType& type);
+
+
+	void tick() override;
 };

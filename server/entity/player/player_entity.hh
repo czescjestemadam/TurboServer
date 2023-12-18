@@ -46,6 +46,8 @@ public:
 
 	explicit PlayerEntity(PlayerSocket* socket);
 
+	void tick() override;
+
 	void setGameMode(GameMode* mode);
 
 
