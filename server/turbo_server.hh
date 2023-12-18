@@ -5,7 +5,6 @@
 #include "world/world_manager.hh"
 #include "network/network_manager.hh"
 #include "plugin/plugin_manager.hh"
-#include "entity/entity.hh"
 #include "entity/player/player_list.hh"
 #include "utils/scheduler/turbo_scheduler.hh"
 #include "commands/command_manager.hh"
@@ -26,8 +25,6 @@ class TurboServer
 	std::mutex runningMutex;
 	std::condition_variable runningConditionVar;
 	std::chrono::time_point<std::chrono::system_clock> startTime;
-
-	std::vector<std::unique_ptr<Entity>> entities;
 
 	PlayerList playerList;
 
@@ -58,11 +55,6 @@ public:
 
 	bool isRunning() const;
 	std::chrono::system_clock::time_point getStartTime() const;
-
-	std::vector<std::unique_ptr<Entity>>& getEntities();
-	Entity* getEntity(int id);
-	Entity* getEntity(UUID uuid);
-	void addEntity(std::unique_ptr<Entity>&& entity);
 
 	PlayerList& getPlayerList();
 

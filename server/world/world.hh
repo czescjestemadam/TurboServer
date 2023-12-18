@@ -5,9 +5,11 @@
 #include "server/world/info/game_rule_set.hh"
 #include "server/utils/vec.hh"
 #include "server/world/info/world_border.hh"
+#include "server/entity/entity.hh"
 
 #include <string>
 #include <vector>
+#include <memory>
 
 class World
 {
@@ -29,6 +31,7 @@ public:
 	WorldBorder border;
 
 	std::vector<Chunk> chunks;
+	std::vector<std::unique_ptr<Entity>> entities;
 
 
 	World(std::string name, const WorldType& type);
@@ -37,4 +40,9 @@ public:
 	void tick();
 
 	Chunk* getChunkAt(int x, int z);
+
+	std::vector<Entity*> getEntities() const;
+	Entity* getEntity(int id) const;
+	Entity* getEntity(const UUID& uuid) const;
+	void addEntity(std::unique_ptr<Entity>&& entity);
 };

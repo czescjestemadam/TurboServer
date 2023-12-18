@@ -77,34 +77,6 @@ std::chrono::system_clock::time_point TurboServer::getStartTime() const
 	return startTime;
 }
 
-std::vector<std::unique_ptr<Entity>>& TurboServer::getEntities()
-{
-	return entities;
-}
-
-Entity* TurboServer::getEntity(int id)
-{
-	for (std::unique_ptr<Entity>& e : entities)
-		if (e->id == id)
-			return e.get();
-
-	return nullptr;
-}
-
-Entity* TurboServer::getEntity(UUID uuid)
-{
-	for (std::unique_ptr<Entity>& e : entities)
-		if (e->uuid == uuid)
-			return e.get();
-
-	return nullptr;
-}
-
-void TurboServer::addEntity(std::unique_ptr<Entity>&& entity)
-{
-	entities.push_back(std::move(entity));
-}
-
 PlayerList& TurboServer::getPlayerList()
 {
 	return playerList;
