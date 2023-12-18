@@ -260,6 +260,8 @@ add_executable(TurboServer
 	server/utils/pid.hh
 	server/commands/server/version_command.cc
 	server/commands/server/version_command.hh
+	server/entity/player/player_list.cc
+	server/entity/player/player_list.hh
 )
 
 target_link_libraries(TurboServer z crypto)

@@ -6,7 +6,7 @@
 #include "network/network_manager.hh"
 #include "plugin/plugin_manager.hh"
 #include "entity/entity.hh"
-#include "server/entity/player/player_entity.hh"
+#include "entity/player/player_list.hh"
 #include "utils/scheduler/turbo_scheduler.hh"
 #include "commands/command_manager.hh"
 #include "server/network/protocol_version.hh"
@@ -28,6 +28,8 @@ class TurboServer
 	std::chrono::time_point<std::chrono::system_clock> startTime;
 
 	std::vector<std::unique_ptr<Entity>> entities;
+
+	PlayerList playerList;
 
 	ConfigManager configManager;
 	WorldManager worldManager;
@@ -61,9 +63,8 @@ public:
 	Entity* getEntity(int id);
 	Entity* getEntity(UUID uuid);
 	void addEntity(std::unique_ptr<Entity>&& entity);
-	std::vector<PlayerEntity*> getPlayers();
-	PlayerEntity* getPlayer(UUID uuid);
-	PlayerEntity* getPlayer(const std::string& name);
+
+	PlayerList& getPlayerList();
 
 	ConfigManager& getConfigManager();
 	WorldManager& getWorldManager();

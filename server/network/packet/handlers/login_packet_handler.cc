@@ -80,9 +80,9 @@ void LoginPacketHandler::handleLoginStart(Packet& packet)
 
 	// create player
 	auto player = std::make_unique<PlayerEntity>(sock);
+	player->profile = profile;
 	sock->player = player.get();
-	sock->player->profile = profile;
-	TurboServer::get()->getEntities().push_back(std::move(player));
+	TurboServer::get()->getPlayerList().addPlayer(std::move(player));
 
 	const VelocityConfig& velocityConfig = TurboServer::get()->getConfigManager().getVelocityConfig();
 	if (velocityConfig.enabled)

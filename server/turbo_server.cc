@@ -53,7 +53,8 @@ void TurboServer::stop()
 
 void TurboServer::tick()
 {
-	// todo thread pool
+	playerList.tick();
+
 	worldManager.tick();
 	networkManager.tick();
 
@@ -104,39 +105,9 @@ void TurboServer::addEntity(std::unique_ptr<Entity>&& entity)
 	entities.push_back(std::move(entity));
 }
 
-std::vector<PlayerEntity*> TurboServer::getPlayers()
+PlayerList& TurboServer::getPlayerList()
 {
-	std::vector<PlayerEntity*> players;
-
-	for (std::unique_ptr<Entity>& entity : entities)
-	{
-		auto* player = dynamic_cast<PlayerEntity*>(entity.get());
-		if (player)
-			players.push_back(player);
-	}
-
-	return players;
-}
-
-PlayerEntity* TurboServer::getPlayer(UUID uuid)
-{
-	for (std::unique_ptr<Entity>& e : entities)
-		if (e->uuid == uuid)
-			return (PlayerEntity*)e.get();
-
-	return nullptr;
-}
-
-PlayerEntity* TurboServer::getPlayer(const std::string& name)
-{
-	for (std::unique_ptr<Entity>& e : entities)
-	{
-		auto* player = dynamic_cast<PlayerEntity*>(e.get());
-		if (player && player->name == name)
-			return player;
-	}
-
-	return nullptr;
+	return playerList;
 }
 
 
