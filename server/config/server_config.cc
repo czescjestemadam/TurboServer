@@ -42,6 +42,8 @@ void ServerConfig::load(nlohmann::json&& j)
 	JSON_HELPER_READ(quitMessages)
 	JSON_HELPER_READ(quitMessageFormat)
 	JSON_HELPER_READ(quitMessageUseDisplayname)
+
+	JSON_HELPER_READ(playerListScrambleTicks)
 }
 
 nlohmann::json ServerConfig::save()
@@ -86,6 +88,8 @@ nlohmann::json ServerConfig::save()
 	JSON_HELPER_WRITE(quitMessages)
 	JSON_HELPER_WRITE(quitMessageFormat)
 	JSON_HELPER_WRITE(quitMessageUseDisplayname)
+
+	JSON_HELPER_WRITE(playerListScrambleTicks);
 
 	return j;
 }

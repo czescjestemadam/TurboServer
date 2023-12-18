@@ -45,6 +45,8 @@ public:
 	std::string quitMessageFormat = "";
 	bool quitMessageUseDisplayname = false;
 
+	int playerListScrambleTicks = 160;
+
 
 	void load(nlohmann::json&& j) override;
 	nlohmann::json save() override;

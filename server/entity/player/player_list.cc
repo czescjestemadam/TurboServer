@@ -1,9 +1,16 @@
 #include "player_list.hh"
+#include "server/turbo_server.hh"
+
+#include <random>
 
 void PlayerList::tick()
 {
 	for (const std::unique_ptr<PlayerEntity>& p : players)
 		p->tick();
+
+	const int scrambleTicks = TurboServer::get()->getConfigManager().getServerConfig().playerListScrambleTicks;
+	if (scrambleTicks > 0 && TurboServer::get()->getTicker().getTickCount() % scrambleTicks == 0)
+		scramble();
 }
 
 
@@ -45,4 +52,12 @@ PlayerEntity* PlayerList::getPlayer(const UUID& id) const
 void PlayerList::addPlayer(std::unique_ptr<PlayerEntity>&& player)
 {
 	players.push_back(std::move(player));
+}
+
+
+void PlayerList::scramble()
+{
+	static std::random_device rd;
+	static std::mt19937 rng(rd());
+	std::ranges::shuffle(players, rng);
 }

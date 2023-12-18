@@ -17,4 +17,7 @@ public:
 	PlayerEntity* getPlayer(const UUID& id) const;
 
 	void addPlayer(std::unique_ptr<PlayerEntity>&& player);
+
+private:
+	void scramble();
 };
