@@ -12,6 +12,8 @@ TurboServer::TurboServer(Logger&& logger, RunArgs&& args) : logger(logger), args
 
 	if (!args.hasFlag("default-configs"))
 		configManager.init("configs");
+
+	worldManager.loadAll();
 }
 
 
@@ -20,8 +22,6 @@ void TurboServer::start()
 	logger.info("Starting");
 	running = true;
 	startTime = std::chrono::system_clock::now();
-
-	// world
 
 	commandManager.registerCommands();
 

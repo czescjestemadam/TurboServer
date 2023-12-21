@@ -6,6 +6,7 @@
 #include "server/utils/vec.hh"
 #include "server/world/info/world_border.hh"
 #include "server/entity/entity.hh"
+#include "generators/world_generator.hh"
 
 #include <string>
 #include <vector>
@@ -15,7 +16,7 @@ class World
 {
 public:
 	const std::string name;
-	const WorldType type;
+	const WorldType* type;
 
 	Vec3i spawnPos;
 	float spawnAngle;
@@ -29,17 +30,24 @@ public:
 	GameRuleSet gameRules;
 	Difficulty* difficulty;
 	WorldBorder border;
+	long seed;
+
+	std::unique_ptr<WorldGenerator> generator;
 
 	std::vector<Chunk> chunks;
 	std::vector<std::unique_ptr<Entity>> entities;
 
 
-	World(std::string name, const WorldType& type);
+	World(std::string name, WorldType* type, long seed);
 
 
 	void tick();
 
-	Chunk* getChunkAt(int x, int z);
+	Chunk* getChunk(int x, int z);
+	Chunk* getChunkAt(int blockX, int blockZ);
+	Chunk* getChunkAt(const Vec3i& blockPos);
+
+	void generateChunk(int x, int z);
 
 	std::vector<Entity*> getEntities() const;
 	Entity* getEntity(int id) const;

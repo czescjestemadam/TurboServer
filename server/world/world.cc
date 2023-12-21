@@ -1,24 +1,42 @@
-#include <utility>
-
 #include "world.hh"
 
-World::World(std::string name, const WorldType& type) : name(std::move(name)), type(type)
+World::World(std::string name, WorldType* type, long seed) : name(std::move(name)), type(type), seed(seed), generator(WorldGenerator::forType(type, seed))
 {
 }
 
 void World::tick()
 {
-
+	// todo split to nonadjacent chunk sets
+	for (Chunk& chunk : chunks)
+		chunk.tick();
 }
 
-Chunk* World::getChunkAt(int x, int z)
+
+Chunk* World::getChunk(int x, int z)
 {
 	for (Chunk& chunk : chunks)
-		if (chunk.getX() == x && chunk.getZ() == z)
+		if (chunk.x == x && chunk.z == z)
 			return &chunk;
 
 	return nullptr;
 }
+
+Chunk* World::getChunkAt(int blockX, int blockZ)
+{
+	return getChunk(blockX / 16, blockZ / 16); // todo test
+}
+
+Chunk* World::getChunkAt(const Vec3i& blockPos)
+{
+	return getChunkAt(blockPos.x, blockPos.z);
+}
+
+
+void World::generateChunk(int x, int z)
+{
+	chunks.push_back(generator->getChunk(x, z));
+}
+
 
 std::vector<Entity*> World::getEntities() const
 {

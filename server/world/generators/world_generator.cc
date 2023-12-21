@@ -4,7 +4,8 @@ WorldGenerator::WorldGenerator(long seed) : seed(seed)
 {
 }
 
-long WorldGenerator::getSeed() const
+
+std::unique_ptr<WorldGenerator> WorldGenerator::forType(WorldType* type, long seed)
 {
-	return seed;
+	return nullptr;
 }
