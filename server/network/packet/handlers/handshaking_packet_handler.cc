@@ -1,7 +1,5 @@
 #include "handshaking_packet_handler.hh"
 
-#include "status_packet_handler.hh"
-
 HandshakingPacketHandler::HandshakingPacketHandler(PlayerSocket* sock) : PacketHandler(sock)
 {
 }

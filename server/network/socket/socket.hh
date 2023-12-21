@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <arpa/inet.h>
-#include "../../utils/logger/logger.hh"
 
 class Socket
 {

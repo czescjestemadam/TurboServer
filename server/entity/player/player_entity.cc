@@ -1,5 +1,7 @@
 #include "player_entity.hh"
 
+#include <format>
+
 PlayerEntity::PlayerEntity(PlayerSocket* socket) : LivingEntity({}), socket(socket)
 {
 }

@@ -5,7 +5,6 @@
 #include "socket/player_socket.hh"
 #include "packet/handlers/packet_handler.hh"
 
-#include <unordered_map>
 #include <thread>
 
 class NetworkManager

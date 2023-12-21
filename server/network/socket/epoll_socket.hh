@@ -2,6 +2,7 @@
 #include "socket.hh"
 
 #include <sys/epoll.h>
+#include <vector>
 
 class EpollSocket : public Socket
 {
