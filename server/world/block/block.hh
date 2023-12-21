@@ -3,5 +3,7 @@
 
 class Block
 {
+public:
+	virtual ~Block() = default;
 
 };

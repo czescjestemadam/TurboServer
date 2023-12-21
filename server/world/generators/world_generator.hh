@@ -9,6 +9,7 @@ protected:
 
 public:
 	explicit WorldGenerator(long seed);
+	virtual ~WorldGenerator() = default;
 
 	virtual Chunk getChunk(int x, int z) = 0;
 	virtual BlockState getBlock(int x, int y, int z) = 0;

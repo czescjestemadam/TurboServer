@@ -6,6 +6,8 @@
 class ISerializable
 {
 public:
+	virtual ~ISerializable() = default;
+
 	virtual std::unordered_map<std::string, std::any> serialize() = 0;
 	virtual void deserialize(std::unordered_map<std::string, std::any> values) = 0;
 };
