@@ -13,6 +13,9 @@ TurboServer::TurboServer(Logger&& logger, RunArgs&& args) : logger(logger), args
 	if (!args.hasFlag("default-configs"))
 		configManager.init("configs");
 
+	status.loadIcon();
+	status.update();
+
 	worldManager.loadAll();
 }
 
@@ -75,6 +78,11 @@ bool TurboServer::isRunning() const
 std::chrono::system_clock::time_point TurboServer::getStartTime() const
 {
 	return startTime;
+}
+
+ServerStatus& TurboServer::getStatus()
+{
+	return status;
 }
 
 PlayerList& TurboServer::getPlayerList()

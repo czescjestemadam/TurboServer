@@ -27,25 +27,8 @@ void StatusPacketHandler::disconnect(ChatComponent* chat)
 
 void StatusPacketHandler::handleStatusReq(Packet& packet)
 {
-	const ProtocolVersion& ver = TurboServer::getProtocolVersion();
-	const ServerConfig& sCfg = TurboServer::get()->getConfigManager().getServerConfig();
-
-	nlohmann::json j;
-	j["version"] = {
-			{ "name",     ver.getName() },
-			{ "protocol", ver.getNum() }
-	};
-	j["players"] = {
-			{ "max",    sCfg.maxPlayers },
-			{ "online", TurboServer::get()->getPlayerList().getPlayerCount() },
-			{ "sample", {}} // todo
-	};
-	j["description"] = {
-			{ "text", sCfg.motd }
-	};
-
 	PacketBuff data;
-	data.writeString(j.dump());
+	data.writeString(TurboServer::get()->getStatus().json);
 	sock->write({ PacketId::Status::STATUS_RESPONSE, std::move(data) });
 }
 

@@ -268,6 +268,8 @@ add_executable(TurboServer
 	server/utils/base64.hh
 	server/utils/png.cc
 	server/utils/png.hh
+	server/server_status.cc
+	server/server_status.hh
 )
 
 target_link_libraries(TurboServer z crypto)

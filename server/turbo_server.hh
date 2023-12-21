@@ -1,6 +1,7 @@
 #pragma once
 #include "utils/logger/logger.hh"
 #include "run_args.hh"
+#include "server_status.hh"
 #include "config/config_manager.hh"
 #include "world/world_manager.hh"
 #include "network/network_manager.hh"
@@ -25,6 +26,8 @@ class TurboServer
 	std::mutex runningMutex;
 	std::condition_variable runningConditionVar;
 	std::chrono::time_point<std::chrono::system_clock> startTime;
+
+	ServerStatus status;
 
 	PlayerList playerList;
 
@@ -55,6 +58,8 @@ public:
 
 	bool isRunning() const;
 	std::chrono::system_clock::time_point getStartTime() const;
+
+	ServerStatus& getStatus();
 
 	PlayerList& getPlayerList();
 
