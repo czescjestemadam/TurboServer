@@ -266,6 +266,8 @@ add_executable(TurboServer
 	server/world/generators/overworld/overworld_generator.hh
 	server/utils/base64.cc
 	server/utils/base64.hh
+	server/utils/png.cc
+	server/utils/png.hh
 )
 
 target_link_libraries(TurboServer z crypto)
