@@ -15,7 +15,8 @@ int main(int argc, char* argv[])
 				  << " --help                 shows help\n"
 				  << " --version --ver        shows TurboServer version\n"
 				  << " --default-configs      skips loading/saving configs, using default\n"
-				  << " --no-logs              skips logging to file\n";
+				  << " --no-logs              skips logging to file\n"
+				  << " --no-pidfile			  skips writing pidfile\n";
 
 		return 0;
 	}
@@ -31,7 +32,8 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	PID::writeFile();
+	if (!args.hasFlag("no-pidfile"))
+		PID::writeFile();
 
 	ConsoleHandler::init();
 
