@@ -1,10 +1,6 @@
 #include "handshaking_packet_handler.hh"
 
-HandshakingPacketHandler::HandshakingPacketHandler(PlayerSocket* sock) : PacketHandler(sock)
-{
-}
-
-void HandshakingPacketHandler::handle(Packet& packet)
+void HandshakingPacketHandler::handle(PlayerSocket* sock, Packet& packet)
 {
 	if (packet.getId() == PacketId::Handshaking::HANDSHAKE)
 	{
@@ -20,6 +16,6 @@ void HandshakingPacketHandler::handle(Packet& packet)
 	}
 }
 
-void HandshakingPacketHandler::disconnect(ChatComponent* chat)
+void HandshakingPacketHandler::disconnect(PlayerSocket* sock, ChatComponent* chat)
 {
 }

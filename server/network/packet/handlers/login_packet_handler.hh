@@ -6,18 +6,16 @@
 class LoginPacketHandler : public PacketHandler
 {
 public:
-	explicit LoginPacketHandler(PlayerSocket* sock);
-
-	void handle(Packet& packet) override;
-	void disconnect(ChatComponent* chat) override;
+	void handle(PlayerSocket* sock, Packet& packet) override;
+	void disconnect(PlayerSocket* sock, ChatComponent* chat) override;
 
 private:
-	void handleLoginStart(Packet& packet);
-	void handleEncryptionRes(Packet& packet);
-	void handleLoginPluginRes(Packet& packet);
+	void handleLoginStart(PlayerSocket* sock, Packet& packet);
+	void handleEncryptionRes(PlayerSocket* sock, Packet& packet);
+	void handleLoginPluginRes(PlayerSocket* sock, Packet& packet);
 
-	void setCompression(int threshold);
-	void success(GameProfile& profile);
+	void setCompression(PlayerSocket* sock, int threshold);
+	void success(PlayerSocket* sock, GameProfile& profile);
 
 public:
 	static bool isNameValid(const std::string& name);

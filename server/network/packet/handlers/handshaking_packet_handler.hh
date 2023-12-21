@@ -5,8 +5,6 @@
 class HandshakingPacketHandler : public PacketHandler
 {
 public:
-	explicit HandshakingPacketHandler(PlayerSocket* sock);
-
-	void handle(Packet& packet) override;
-	void disconnect(ChatComponent* chat) override;
+	void handle(PlayerSocket* sock, Packet& packet) override;
+	void disconnect(PlayerSocket* sock, ChatComponent* chat) override;
 };

@@ -5,12 +5,10 @@
 class StatusPacketHandler : public PacketHandler
 {
 public:
-	explicit StatusPacketHandler(PlayerSocket* sock);
-
-	void handle(Packet& packet) override;
-	void disconnect(ChatComponent* chat) override;
+	void handle(PlayerSocket* sock, Packet& packet) override;
+	void disconnect(PlayerSocket* sock, ChatComponent* chat) override;
 
 private:
-	void handleStatusReq(Packet& packet);
-	void handlePingReq(Packet& packet);
+	void handleStatusReq(PlayerSocket* sock, Packet& packet);
+	void handlePingReq(PlayerSocket* sock, Packet& packet);
 };

@@ -6,16 +6,9 @@ class PlayerSocket;
 
 class PacketHandler
 {
-protected:
-	PlayerSocket* sock;
-
 public:
-	explicit PacketHandler(PlayerSocket* sock) : sock(sock)
-	{
-	}
-
 	virtual ~PacketHandler() = default;
 
-	virtual void handle(Packet& packet) = 0;
-	virtual void disconnect(ChatComponent* chat) = 0;
+	virtual void handle(PlayerSocket* sock, Packet& packet) = 0;
+	virtual void disconnect(PlayerSocket* sock, ChatComponent* chat) = 0;
 };

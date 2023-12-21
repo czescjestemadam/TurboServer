@@ -35,7 +35,7 @@ void NetworkManager::stop()
 	std::unique_ptr<ChatComponent> serverStopComponent = std::make_unique<TextChatComponent>(serverCfg.serverClosedMessage);
 	for (PlayerSocket& sock : players)
 	{
-		sock.handler->disconnect(serverStopComponent.get());
+		sock.handler->disconnect(&sock, serverStopComponent.get());
 		sock.close();
 	}
 }
@@ -165,7 +165,7 @@ void NetworkManager::handlePacket(PlayerSocket* sock, Packet&& packet)
 {
 	try
 	{
-		sock->handler->handle(packet);
+		sock->handler->handle(sock, packet);
 	}
 	catch (std::exception& e)
 	{

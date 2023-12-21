@@ -88,19 +88,19 @@ void PlayerSocket::setState(NetworkState next)
 	switch (state)
 	{
 		case HANDSHAKING:
-			handler = std::make_unique<HandshakingPacketHandler>(this);
+			handler = std::make_unique<HandshakingPacketHandler>();
 			break;
 
 		case STATUS:
-			handler = std::make_unique<StatusPacketHandler>(this);
+			handler = std::make_unique<StatusPacketHandler>();
 			break;
 
 		case LOGIN:
-			handler = std::make_unique<LoginPacketHandler>(this);
+			handler = std::make_unique<LoginPacketHandler>();
 			break;
 
 		case PLAY:
-			handler = std::make_unique<PlayPacketHandler>(this);
+			handler = std::make_unique<PlayPacketHandler>();
 			break;
 
 		default:

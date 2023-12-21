@@ -2,37 +2,33 @@
 
 #include "server/turbo_server.hh"
 
-StatusPacketHandler::StatusPacketHandler(PlayerSocket* sock) : PacketHandler(sock)
-{
-}
-
-void StatusPacketHandler::handle(Packet& packet)
+void StatusPacketHandler::handle(PlayerSocket* sock, Packet& packet)
 {
 	switch (packet.getId())
 	{
 		case PacketId::Status::STATUS_REQUEST:
-			handleStatusReq(packet);
+			handleStatusReq(sock, packet);
 			break;
 
 		case PacketId::Status::PING_REQUEST:
-			handlePingReq(packet);
+			handlePingReq(sock, packet);
 			break;
 	}
 }
 
-void StatusPacketHandler::disconnect(ChatComponent* chat)
+void StatusPacketHandler::disconnect(PlayerSocket* sock, ChatComponent* chat)
 {
 }
 
 
-void StatusPacketHandler::handleStatusReq(Packet& packet)
+void StatusPacketHandler::handleStatusReq(PlayerSocket* sock, Packet& packet)
 {
 	PacketBuff data;
 	data.writeString(TurboServer::get()->getStatus().json);
 	sock->write({ PacketId::Status::STATUS_RESPONSE, std::move(data) });
 }
 
-void StatusPacketHandler::handlePingReq(Packet& packet)
+void StatusPacketHandler::handlePingReq(PlayerSocket* sock, Packet& packet)
 {
 	sock->write(packet);
 }
