@@ -32,7 +32,7 @@ void NetworkManager::stop()
 	epollWaitThread.join();
 
 	ServerConfig& serverCfg = TurboServer::get()->getConfigManager().getServerConfig();
-	std::unique_ptr<ChatComponent> serverStopComponent = std::make_unique<TextChatComponent>(serverCfg.serverClosedMessage);
+	const std::unique_ptr<ChatComponent> serverStopComponent = std::make_unique<TextChatComponent>(serverCfg.serverClosedMessage);
 	for (PlayerSocket& sock : players)
 	{
 		sock.handler->disconnect(&sock, serverStopComponent.get());
@@ -98,7 +98,7 @@ void NetworkManager::epollWaitLoop()
 	while (running)
 	{
 		std::vector<epoll_event> events = epollSocket.wait();
-		for (epoll_event& e : events)
+		for (const epoll_event& e : events)
 		{
 			const uint ev = e.events;
 
@@ -127,7 +127,7 @@ void NetworkManager::handleSocketData(PlayerSocket* sock)
 
 		// todo remove
 		logger.debug("packet from {0} state {1}: f2:{2}/0x{2:x} {3}",
-				sock->getAddress(), (int)sock->state, field2, buff.toStringShort());
+				sock->getAddress(), static_cast<int>(sock->state), field2, buff.toStringShort());
 
 		// todo recode
 		if (sock->compressionEnabled) // after SetCompression packet
@@ -169,6 +169,6 @@ void NetworkManager::handlePacket(PlayerSocket* sock, Packet&& packet)
 	}
 	catch (std::exception& e)
 	{
-		logger.error("error handling state/packet {}/{}: {}", (int)sock->state, packet.getId(), e.what());
+		logger.error("error handling state/packet {}/{}: {}", static_cast<int>(sock->state), packet.getId(), e.what());
 	}
 }

@@ -93,11 +93,11 @@ UUID UUID::parse(const std::string& str)
 	int idxB = 0;
 	for (int i = 0; i < str.length(); i++)
 	{
-		char c = str.at(i);
+		const char c = str.at(i);
 		if (c == '-')
 			continue;
 
-		char c2 = str.at(++i);
+		const char c2 = str.at(++i);
 
 		id.bytes[idxB++] = (hexValue(c) << 4) | hexValue(c2);
 	}

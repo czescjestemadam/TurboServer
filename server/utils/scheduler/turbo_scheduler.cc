@@ -4,7 +4,7 @@ void TurboScheduler::tick()
 {
 	for (auto i = tasks.begin(); i != tasks.end();)
 	{
-		std::unique_ptr<Task>& task = *i;
+		const std::unique_ptr<Task>& task = *i;
 		bool remove = false;
 
 		try

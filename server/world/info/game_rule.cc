@@ -32,7 +32,7 @@ bool GameRule::operator!=(const GameRule& rhs) const
 std::vector<GameRule> GameRule::copyValues()
 {
 	std::vector<GameRule> rules;
-	for (GameRule* rule : gameRules)
+	for (const GameRule* rule : gameRules)
 		rules.push_back(*rule);
 	return rules;
 }

@@ -17,7 +17,7 @@ void NbtTagByteArray::read(PacketBuff& buff, bool name)
 	if (name)
 		readName(buff);
 
-	int len = ntohl(buff.readInt());
+	const int len = ntohl(buff.readInt());
 
 	byte_t bytes[len];
 	buff.readBytes(bytes, len);
@@ -57,7 +57,7 @@ void NbtTagIntArray::read(PacketBuff& buff, bool name)
 	if (name)
 		readName(buff);
 
-	int len = buff.readInt();
+	const int len = buff.readInt();
 
 	arr.reserve(len);
 	for (int i = 0; i < len; ++i)
@@ -73,7 +73,7 @@ void NbtTagIntArray::write(PacketBuff& buff, bool name)
 	}
 
 	buff.writeInt(htonl(arr.size()));
-	for (int v : arr)
+	for (const int v : arr)
 		buff.writeInt(v);
 }
 
@@ -97,7 +97,7 @@ void NbtTagLongArray::read(PacketBuff& buff, bool name)
 	if (name)
 		readName(buff);
 
-	int len = buff.readInt();
+	const int len = buff.readInt();
 
 	arr.reserve(len);
 	for (int i = 0; i < len; ++i)
@@ -113,7 +113,7 @@ void NbtTagLongArray::write(PacketBuff& buff, bool name)
 	}
 
 	buff.writeInt(htonl(arr.size()));
-	for (long v : arr)
+	for (const long v : arr)
 		buff.writeLong(v);
 }
 

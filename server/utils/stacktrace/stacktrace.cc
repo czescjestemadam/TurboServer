@@ -24,7 +24,7 @@ Stacktrace Stacktrace::get(int num, int skip)
 	std::vector<StackEntry> entries;
 
 	void* trace[num];
-	int traceSize = backtrace(trace, num + skip);
+	const int traceSize = backtrace(trace, num + skip);
 
 	char** msgs = backtrace_symbols(trace, num);
 

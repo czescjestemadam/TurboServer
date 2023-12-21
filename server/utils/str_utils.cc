@@ -7,7 +7,7 @@ std::vector<std::string> StrUtils::split(const std::string& str, char del)
 	std::vector<std::string> ret;
 	std::string buff;
 
-	for (char c : str)
+	for (const char c : str)
 	{
 		if (c == del)
 		{
@@ -36,8 +36,8 @@ std::string StrUtils::trimc(std::string str)
 std::string StrUtils::trim(std::string& str)
 {
 	// ltrim
-	str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](char c)
-	{ return !std::isspace(c); }));
+	str.erase(str.begin(), std::ranges::find_if(str, [](char c)
+	                                            { return !std::isspace(c); }));
 
 	// rtrim
 	str.erase(std::find_if(str.rbegin(), str.rend(), [](char c)
@@ -63,13 +63,13 @@ std::string StrUtils::formatUptime(const std::chrono::system_clock::duration& du
 {
 	std::string str;
 
-	ulong seconds = std::chrono::duration_cast<std::chrono::seconds>(duration).count();
+	const ulong seconds = std::chrono::duration_cast<std::chrono::seconds>(duration).count();
 	uint s = seconds % 60;
 
-	ulong minutes = seconds / 60;
+	const ulong minutes = seconds / 60;
 	uint m = minutes % 60;
 
-	ulong hours = minutes / 60;
+	const ulong hours = minutes / 60;
 	uint h = hours % 24;
 
 	ulong days = hours / 24;

@@ -21,7 +21,7 @@ void NbtTagCompound::read(PacketBuff& buff, bool name)
 		readName(buff);
 
 	NbtTagType type;
-	while ((type = (NbtTagType)buff.readByte()) != 0)
+	while ((type = static_cast<NbtTagType>(buff.readByte())) != 0)
 	{
 		std::unique_ptr<NbtTag> tag = NBT::tagFromType(type);
 		tag->read(buff, true);

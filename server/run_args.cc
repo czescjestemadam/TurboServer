@@ -53,7 +53,7 @@ void RunArgs::parse()
 
 bool RunArgs::hasFlag(const std::string& name) const
 {
-	return std::find(flags.begin(), flags.end(), name) != flags.end();
+	return std::ranges::find(flags, name) != flags.end();
 }
 
 std::optional<std::string> RunArgs::getArg(const std::string& name) const

@@ -28,7 +28,7 @@ PacketBuff PlayerSocket::read()
 void PlayerSocket::write(PacketBuff& buff)
 {
 	PacketBuff toSend;
-	toSend.writeVarint((int)buff.size());
+	toSend.writeVarint(static_cast<int>(buff.size()));
 	toSend.writeBuff(buff);
 	checkReturnCode(send(fd, toSend.data(), toSend.size(), MSG_DONTWAIT), "PlayerSocket::write(PacketBuff& buff)");
 }
@@ -43,7 +43,7 @@ void PlayerSocket::write(Packet& packet)
 		data.writeVarint(packet.getId());
 		data.writeBuff(packet.getData());
 
-		int dataLen = (int)data.size();
+		const int dataLen = static_cast<int>(data.size());
 
 		if (dataLen < compressionThreshold) // uncompressed
 		{
@@ -78,7 +78,7 @@ void PlayerSocket::tick()
 
 void PlayerSocket::setOptions()
 {
-	int v = 1;
+	const int v = 1;
 	setsockopt(fd, SOL_SOCKET, SO_KEEPALIVE, &v, sizeof(v));
 }
 
@@ -139,7 +139,7 @@ int PlayerSocket::readVarInt()
 	return val;
 }
 
-void PlayerSocket::checkReturnCode(ulong ret, const std::string& func)
+void PlayerSocket::checkReturnCode(ulong ret, const std::string& func)//todo fix
 {
 	if (ret < 0)
 		throw SocketException(func);

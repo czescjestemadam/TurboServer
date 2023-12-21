@@ -15,7 +15,7 @@ Command::Command(std::string name, const std::vector<std::string>& aliases, std:
 
 bool Command::matchAlias(const std::string& alias)
 {
-	return std::find(aliases.begin(), aliases.end(), alias) != aliases.end();
+	return std::ranges::find(aliases, alias) != aliases.end();
 }
 
 

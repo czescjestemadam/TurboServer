@@ -4,7 +4,6 @@
 #include "server/network/socket/epoll_socket.hh"
 
 #include <thread>
-#include <mutex>
 #include <condition_variable>
 
 class TerminalConsole : public IConsole, public CommandSender

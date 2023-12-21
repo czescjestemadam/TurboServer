@@ -1,4 +1,5 @@
 #include "login_packet_handler.hh"
+#include "../packet_id.hh"
 
 #include "server/turbo_server.hh"
 #include "server/utils/nbt/nbt.hh"
@@ -164,9 +165,9 @@ void LoginPacketHandler::handleLoginPluginRes(PlayerSocket* sock, Packet& packet
 	log.info("data: {}", data.toStringShort());
 
 	int version = data.readVarint();
-	std::string address = data.readString();
+	const std::string address = data.readString();
 
-	UUID uuid = data.readUUID();
+	const UUID uuid = data.readUUID();
 	std::string name = data.readString();
 
 	struct prop
@@ -177,7 +178,7 @@ void LoginPacketHandler::handleLoginPluginRes(PlayerSocket* sock, Packet& packet
 	};
 	std::vector<prop> props;
 
-	int propLen = data.readVarint();
+	const int propLen = data.readVarint();
 	for (int i = 0; i < propLen; i++)
 	{
 		prop p;

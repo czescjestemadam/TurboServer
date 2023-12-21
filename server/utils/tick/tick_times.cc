@@ -66,7 +66,7 @@ float TickTimes::getAvg(int num) const
 			break;
 	}
 
-	return float(sum / num);
+	return static_cast<float>(sum / num);
 }
 
 std::string TickTimes::toString(int num) const

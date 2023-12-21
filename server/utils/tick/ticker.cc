@@ -38,8 +38,8 @@ ulong Ticker::getTickCount() const
 
 float Ticker::getTickDelta() const
 {
-	auto micro = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - lastTickStart);
-	return (float)micro.count() / 1000.f;
+	const auto micro = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - lastTickStart);
+	return static_cast<float>(micro.count()) / 1000.f;
 }
 
 
@@ -62,7 +62,6 @@ void Ticker::tickLoop()
 		catch (std::exception& e)
 		{
 			logger.error("tick(): {}", e.what());
-			continue;
 		}
 	}
 }

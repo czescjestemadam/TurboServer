@@ -4,5 +4,7 @@
 class Itemable
 {
 public:
+	virtual ~Itemable() = default;
+
 	virtual Item asItem() = 0;
 };

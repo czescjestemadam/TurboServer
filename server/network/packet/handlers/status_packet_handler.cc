@@ -1,4 +1,5 @@
 #include "status_packet_handler.hh"
+#include "../packet_id.hh"
 
 #include "server/turbo_server.hh"
 

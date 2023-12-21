@@ -22,8 +22,8 @@ void NbtTagList::read(PacketBuff& buff, bool name)
 	if (name)
 		readName(buff);
 
-	NbtTagType type = (NbtTagType)buff.readByte();
-	int len = ntohl(buff.readInt());
+	const NbtTagType type = static_cast<NbtTagType>(buff.readByte());
+	const int len = ntohl(buff.readInt());
 
 	for (int i = 0; i < len; ++i)
 	{
@@ -44,7 +44,7 @@ void NbtTagList::write(PacketBuff& buff, bool name)
 	buff.writeByte(arr.empty() ? END : arr[0]->getType());
 	buff.writeInt(htonl(arr.size()));
 
-	for (std::unique_ptr<NbtTag>& tag : arr)
+	for (const std::unique_ptr<NbtTag>& tag : arr)
 		tag->write(buff, false);
 }
 

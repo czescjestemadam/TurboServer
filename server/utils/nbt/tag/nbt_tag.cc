@@ -15,7 +15,7 @@ void NbtTag::writeName(PacketBuff& buff)
 
 std::string NbtTag::readStr(PacketBuff& buff)
 {
-	ushort len = ntohs(buff.readShortU());
+	const ushort len = ntohs(buff.readShortU());
 
 	if (!len)
 		return "";
@@ -29,7 +29,7 @@ std::string NbtTag::readStr(PacketBuff& buff)
 
 void NbtTag::writeStr(PacketBuff& buff, const std::string& str)
 {
-	ushort len = str.length();
+	const ushort len = str.length();
 	buff.writeShortU(htons(len));
 	if (len)
 		buff.writeBytes((byte_t*)str.c_str(), len);

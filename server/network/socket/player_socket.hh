@@ -3,6 +3,7 @@
 #include "../packet/packet.hh"
 #include "server/network/protocol_version.hh"
 #include "server/network/packet/handlers/packet_handler.hh"
+#include "server/network/network_state.hh"
 
 #include <memory>
 

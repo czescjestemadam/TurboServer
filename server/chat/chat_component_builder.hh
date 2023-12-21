@@ -4,7 +4,7 @@
 template<class T, class Arg>
 class ChatComponentBuilder
 {
-	static_assert(std::is_base_of<ChatComponent, T>::value, "T is not derived from ChatComponent");
+	static_assert(std::is_base_of_v<ChatComponent, T>, "T is not derived from ChatComponent");
 
 	std::unique_ptr<ChatComponent> cmp;
 public:

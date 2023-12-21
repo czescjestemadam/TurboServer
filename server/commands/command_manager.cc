@@ -28,7 +28,7 @@ bool CommandManager::execute(CommandSender* sender, const std::string& str)
 		return false;
 
 	std::vector<std::string> args = StrUtils::split(StrUtils::trimc(str));
-	std::string alias = args.front();
+	const std::string alias = args.front();
 	args.erase(args.begin());
 	return execute(sender, alias, args);
 }
@@ -45,7 +45,7 @@ std::vector<std::string> CommandManager::suggest(CommandSender* sender, const st
 		return {};
 
 	std::vector<std::string> args = StrUtils::split(StrUtils::trimc(str));
-	std::string alias = args.front();
+	const std::string alias = args.front();
 	args.erase(args.begin());
 	return suggest(sender, alias, args);
 }

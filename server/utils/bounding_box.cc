@@ -13,8 +13,8 @@ BoundingBox::BoundingBox(double minX, double minY, double minZ, double maxX, dou
 
 void BoundingBox::normalize()
 {
-	Vec3d oMin = min;
-	Vec3d oMax = max;
+	const Vec3d oMin = min;
+	const Vec3d oMax = max;
 
 	min = { std::min(oMin.x, oMax.x), std::min(oMin.y, oMax.y), std::min(oMin.z, oMax.z) };
 	max = { std::max(oMin.x, oMax.x), std::max(oMin.y, oMax.y), std::max(oMin.z, oMax.z) };

@@ -13,7 +13,7 @@ Group::Group(std::string name, std::string prefix, std::string suffix, const std
 
 bool Group::hasPermission(const std::string& permName)
 {
-	for (AppliedPermission* perm : permissions)
+	for (const AppliedPermission* perm : permissions)
 		if (perm->name == permName)
 			return true;
 
@@ -22,7 +22,7 @@ bool Group::hasPermission(const std::string& permName)
 
 bool Group::getPermission(const std::string& permName)
 {
-	for (AppliedPermission* perm : permissions)
+	for (const AppliedPermission* perm : permissions)
 		if (perm->name == permName)
 			return perm->value;
 

@@ -3,7 +3,6 @@
 #include "server/utils/identifier.hh"
 #include "server/utils/vec.hh"
 
-#include <deque>
 #include <vector>
 #include <string>
 

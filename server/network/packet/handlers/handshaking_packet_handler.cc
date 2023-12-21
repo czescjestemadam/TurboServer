@@ -1,4 +1,5 @@
 #include "handshaking_packet_handler.hh"
+#include "../packet_id.hh"
 
 void HandshakingPacketHandler::handle(PlayerSocket* sock, Packet& packet)
 {
@@ -8,7 +9,7 @@ void HandshakingPacketHandler::handle(PlayerSocket* sock, Packet& packet)
 		sock->protocolVersion = ProtocolVersion::fromNum(data.readVarint());
 		data.readString(); // addr
 		data.readShort(); // port
-		int nextState = data.readVarint();
+		const int nextState = data.readVarint();
 		if (nextState == 1)
 			sock->setState(STATUS);
 		else if (nextState == 2)

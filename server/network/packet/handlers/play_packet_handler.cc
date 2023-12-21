@@ -1,4 +1,5 @@
 #include "play_packet_handler.hh"
+#include "../packet_id.hh"
 
 void PlayPacketHandler::handle(PlayerSocket* sock, Packet& packet)
 {
@@ -262,7 +263,7 @@ void PlayPacketHandler::handlePlayerSession(PlayerSocket* sock, Packet& packet)
 
 void PlayPacketHandler::handleClientCommand(PlayerSocket* sock, Packet& packet)
 {
-	int id = packet.getData().readVarint();
+	const int id = packet.getData().readVarint();
 	if (id == 0) // respawn
 	{
 
@@ -343,7 +344,7 @@ void PlayPacketHandler::handleEditBook(PlayerSocket* sock, Packet& packet)
 	PacketBuff& data = packet.getData();
 
 	int slot = data.readVarint();
-	int pageNum = data.readVarint();
+	const int pageNum = data.readVarint();
 	std::string pages[pageNum];
 	for (int i = 0; i < pageNum; ++i)
 		pages[i] = data.readString();
@@ -533,7 +534,7 @@ void PlayPacketHandler::handleSeenAdvancements(PlayerSocket* sock, Packet& packe
 {
 	PacketBuff& data = packet.getData();
 
-	int action = data.readVarint();
+	const int action = data.readVarint();
 	Identifier tab = Identifier::nil();
 	if (action == 0)
 		tab = data.readIdentifier();

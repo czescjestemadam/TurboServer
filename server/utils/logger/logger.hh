@@ -1,7 +1,6 @@
 #pragma once
 #include "log_level.hh"
 
-#include <iostream>
 #include <functional>
 #include <format>
 
@@ -23,28 +22,28 @@ public:
 	void crash(std::string_view msg);
 
 	template<class ...T>
-	inline void mdebug(std::format_string<T...> format, T&& ...args);
+	void mdebug(std::format_string<T...> format, T&& ...args);
 
 	template<class ...T>
-	inline void debug(std::format_string<T...> format, T&& ...args);
+	void debug(std::format_string<T...> format, T&& ...args);
 
 	template<class ...T>
-	inline void info(std::format_string<T...> format, T&& ...args);
+	void info(std::format_string<T...> format, T&& ...args);
 
 	template<class ...T>
-	inline void warn(std::format_string<T...> format, T&& ...args);
+	void warn(std::format_string<T...> format, T&& ...args);
 
 	template<class ...T>
-	inline void error(std::format_string<T...> format, T&& ...args);
+	void error(std::format_string<T...> format, T&& ...args);
 
 	template<class ...T>
-	inline void crash(std::format_string<T...> format, T&& ...args);
+	void crash(std::format_string<T...> format, T&& ...args);
 
 	void stacktrace(const LogLevel& level, std::string_view msg);
 	void stacktrace(const LogLevel& level, const std::function<std::string_view()>& func);
 
 	template<class ...T>
-	inline void stacktrace(const LogLevel& level, std::format_string<T...> format, T&& ...args);
+	void stacktrace(const LogLevel& level, std::format_string<T...> format, T&& ...args);
 
 	const std::string& getName() const;
 	void setName(std::string name);

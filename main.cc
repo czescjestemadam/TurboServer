@@ -2,6 +2,8 @@
 #include "server/utils/pid.hh"
 #include "server/utils/console/console_handler.hh"
 
+#include <iostream>
+
 int main(int argc, char* argv[])
 {
 	RunArgs args(argc, argv);
@@ -20,7 +22,7 @@ int main(int argc, char* argv[])
 
 		return 0;
 	}
-	else if (args.hasFlag("ver") || args.hasFlag("version"))
+	if (args.hasFlag("ver") || args.hasFlag("version"))
 	{
 		std::cout << "TurboServer v" + TurboServer::getVersion() << '\n';
 		return 0;

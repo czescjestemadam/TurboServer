@@ -11,8 +11,9 @@ protected:
 
 public:
 	Task(const std::function<void()>& func, int remainingTicks);
+	virtual ~Task() = default;
 
 	virtual bool tick();
 
-	const ulong getId() const;
+	ulong getId() const;
 };

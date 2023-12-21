@@ -23,7 +23,7 @@ void ConsoleHandler::add(IConsole& con)
 
 void ConsoleHandler::remove(IConsole& con)
 {
-	consoles.erase(std::find(consoles.begin(), consoles.end(), &con));
+	consoles.erase(std::ranges::find(consoles, &con));
 }
 
 

@@ -6,8 +6,6 @@
 #include "tag/nbt_tag_list.hh"
 #include "tag/nbt_tag_compound.hh"
 
-#include <iostream>
-
 std::unique_ptr<NbtTag> NBT::tagFromType(NbtTagType type)
 {
 	switch (type)
@@ -35,13 +33,13 @@ std::unique_ptr<NbtTag> NBT::tagFromType(NbtTagType type)
 
 std::unique_ptr<NbtTag> NBT::readStr(const std::string& str, std::unique_ptr<NbtTag>* parent)
 {
-	PacketBuff buff((byte_t*)str.c_str(), str.length());
+	const PacketBuff buff((byte_t*)str.c_str(), str.length());
 	return readCopy(buff, parent);
 }
 
 std::unique_ptr<NbtTag> NBT::read(PacketBuff& buff, std::unique_ptr<NbtTag>* parent)
 {
-	NbtTagType type = (NbtTagType)buff.readByte();
+	const NbtTagType type = static_cast<NbtTagType>(buff.readByte());
 
 	std::unique_ptr<NbtTag> tag = tagFromType(type);
 	tag->read(buff, true);

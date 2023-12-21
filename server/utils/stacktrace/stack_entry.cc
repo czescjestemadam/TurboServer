@@ -22,7 +22,7 @@ StackEntry StackEntry::demangle(const std::string& function)
 	std::string bin;
 	std::string addr;
 
-	for (char c : function)
+	for (const char c : function)
 	{
 		if (c == ')')
 			break;
@@ -34,7 +34,7 @@ StackEntry StackEntry::demangle(const std::string& function)
 	}
 
 	std::string ret = ConsoleHandler::system("addr2line -Csfe " + bin + ' ' + addr);
-	std::replace(ret.begin(), ret.end(), '\n', ' ');
+	std::ranges::replace(ret, '\n', ' ');
 
 	return StackEntry(ret);
 }

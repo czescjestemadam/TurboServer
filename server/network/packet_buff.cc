@@ -43,7 +43,7 @@ PacketBuff::PacketBuff(byte_t* bytes, ulong size) : buff(bytes, bytes + size)
 
 byte_t PacketBuff::readByte()
 {
-	byte_t b = buff.front();
+	const byte_t b = buff.front();
 	buff.erase(buff.begin());
 	return b;
 }
@@ -168,7 +168,7 @@ long PacketBuff::readVarlong()
 	while (true)
 	{
 		cur = readByte();
-		val |= (long)(cur & SEGMENT_BITS) << pos;
+		val |= static_cast<long>(cur & SEGMENT_BITS) << pos;
 
 		if ((cur & CONTINUE_BIT) == 0)
 			break;
@@ -218,8 +218,8 @@ std::string PacketBuff::readString()
 
 void PacketBuff::writeString(const std::string& v)
 {
-	writeVarint((int)v.length());
-	writeBytes((byte_t*)v.data(), (int)v.length());
+	writeVarint(static_cast<int>(v.length()));
+	writeBytes((byte_t*)v.data(), static_cast<int>(v.length()));
 }
 
 Identifier PacketBuff::readIdentifier()
@@ -234,18 +234,18 @@ void PacketBuff::writeIdentifier(const Identifier& v)
 
 Vec3i PacketBuff::readPosition()
 {
-	ulong l = readLongU();
+	const ulong l = readLongU();
 	return Vec3i(l >> 38, l << 52 >> 52, l << 26 >> 48);
 }
 
 void PacketBuff::writePosition(Vec3i v)
 {
-	writeLongU(ulong(v.x & 0x3ffffff) << 38 | ulong(v.z & 0x3ffffff) << 12 | (v.y & 0xfff));
+	writeLongU(static_cast<ulong>(v.x & 0x3ffffff) << 38 | static_cast<ulong>(v.z & 0x3ffffff) << 12 | (v.y & 0xfff));
 }
 
 float PacketBuff::readAngle()
 {
-	byte_t b = readByte();
+	const byte_t b = readByte();
 	return b / 256.f;
 }
 
@@ -270,7 +270,7 @@ void PacketBuff::writeUUID(const UUID& v)
 
 PacketBuff PacketBuff::compress(int level)
 {
-	ulong srcLen = buff.size();
+	const ulong srcLen = buff.size();
 	ulong dstLen = compressBound(srcLen);
 	byte_t dst[dstLen];
 
@@ -281,7 +281,7 @@ PacketBuff PacketBuff::compress(int level)
 
 PacketBuff PacketBuff::decompress(ulong dstLen)
 {
-	ulong srcLen = buff.size();
+	const ulong srcLen = buff.size();
 	byte_t dst[dstLen];
 
 	checkZlibReturnCode(uncompress(dst, &dstLen, buff.data(), srcLen));
@@ -306,8 +306,8 @@ std::string PacketBuff::toString() const
 		return "[]";
 
 	std::ostringstream ss;
-	for (byte_t b : buff)
-		ss << "0x" << std::setw(2) << std::setfill('0') << std::hex << (short)b << ' ';
+	for (const byte_t b : buff)
+		ss << "0x" << std::setw(2) << std::setfill('0') << std::hex << static_cast<short>(b) << ' ';
 
 	std::string str = ss.str();
 	str.erase(str.end() - 1);
@@ -321,8 +321,8 @@ std::string PacketBuff::toStringShort() const
 		return "[]";
 
 	std::ostringstream ss;
-	for (byte_t b : buff)
-		ss << std::setw(2) << std::setfill('0') << std::hex << (short)b;
+	for (const byte_t b : buff)
+		ss << std::setw(2) << std::setfill('0') << std::hex << static_cast<short>(b);
 
 	return '[' + ss.str() + ']';
 }

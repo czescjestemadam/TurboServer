@@ -2,7 +2,6 @@
 #include "punishment.hh"
 #include "server/auth/game_profile.hh"
 
-#include <unordered_map>
 #include <vector>
 
 class BanManager

@@ -51,7 +51,7 @@ bool ChatFormat::operator!=(const ChatFormat& rhs) const
 
 const ChatFormat* ChatFormat::fromCode(char c)
 {
-	for (ChatFormat* format: formats)
+	for (const ChatFormat* format: formats)
 		if (format->code == c)
 			return format;
 
@@ -60,7 +60,7 @@ const ChatFormat* ChatFormat::fromCode(char c)
 
 const ChatFormat* ChatFormat::fromName(const std::string& name)
 {
-	for (ChatFormat* format: formats)
+	for (const ChatFormat* format: formats)
 		if (format->name == name)
 			return format;
 

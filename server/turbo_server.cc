@@ -28,7 +28,7 @@ void TurboServer::start()
 
 	commandManager.registerCommands();
 
-	NetworkConfig& net = configManager.getNetworkConfig();
+	const NetworkConfig& net = configManager.getNetworkConfig();
 	networkManager.start(net.serverIp, net.serverPort);
 
 	// plugin

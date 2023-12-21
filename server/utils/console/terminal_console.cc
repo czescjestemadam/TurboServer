@@ -26,7 +26,7 @@ void TerminalConsole::init()
 	running = true;
 
 	epoll.create();
-	StdinSocket sock;
+	const StdinSocket sock;
 	epoll.add(sock);
 
 	readerThread = std::jthread(std::bind(&TerminalConsole::readerLoop, this));
@@ -66,11 +66,11 @@ std::string TerminalConsole::colorReplacer(const std::string& str)
 
 	for (int i = 0; i < 1024; i++)
 	{
-		ulong pos = ret.find("§");
+		const ulong pos = ret.find("§");
 		if (pos >= ret.length())
 			break;
 
-		char nextChar = ret[pos + 2];
+		const char nextChar = ret[pos + 2];
 		const ChatFormat* fmt = ChatFormat::fromCode(nextChar);
 
 		ret.erase(pos, 3);
@@ -103,7 +103,7 @@ void TerminalConsole::readerLoop()
 		std::vector<epoll_event> events = epoll.wait();
 		for (epoll_event& e : events)
 		{
-			int c = std::getchar();
+			const int c = std::getchar();
 
 			switch (st)
 			{
@@ -129,7 +129,7 @@ void TerminalConsole::readerLoop()
 							break;
 
 						default:
-							char cs[2] = { (char)c, 0 };
+							const char cs[2] = { static_cast<char>(c), 0 };
 							line.insert(cursor++, cs);
 							break;
 					}
@@ -205,7 +205,7 @@ void TerminalConsole::sigintHandler(int i)
 	std::cout << "\rpress again to stop the server\n";
 
 	static std::chrono::steady_clock::time_point last;
-	std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
+	const std::chrono::steady_clock::time_point now = std::chrono::steady_clock::now();
 
 	if (now - last < std::chrono::milliseconds(400))
 	{

@@ -15,7 +15,7 @@ bool Task::tick()
 	return true;
 }
 
-const ulong Task::getId() const
+ulong Task::getId() const
 {
 	return id;
 }

@@ -8,7 +8,7 @@ TpsCommand::TpsCommand() : Command("tps", "turboserver.cmd.tps")
 
 bool TpsCommand::execute(CommandSender* sender, const std::string& alias, const std::vector<std::string>& args)
 {
-	TickTimes& times = TurboServer::get()->getTicker().getTimes();
+	const TickTimes& times = TurboServer::get()->getTicker().getTimes();
 	sender->sendMessage({
 			"TPS min/max/avg: 1min, 5min, 15min",
 			std::format("{}, {}, {}", times.toTpsString(1200), times.toTpsString(6000), times.toTpsString(18000))

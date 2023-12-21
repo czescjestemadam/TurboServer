@@ -13,7 +13,7 @@ Logger::Logger(std::string name) : name(std::move(name))
 
 void Logger::log(const LogLevel& level, std::string_view msg)
 {
-	std::string str = std::format("[{}] [{}/{}]: {}", getTime(), name, level.getName(), msg);
+	const std::string str = std::format("[{}] [{}/{}]: {}", getTime(), name, level.getName(), msg);
 
 	if (level >= LogLevel::ERROR)
 		ConsoleHandler::err(ChatFormat::RED + str);

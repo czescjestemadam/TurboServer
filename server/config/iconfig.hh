@@ -4,6 +4,8 @@
 class IConfig
 {
 public:
+	virtual ~IConfig() = default;
+
 	virtual void load(nlohmann::json&& j) = 0;
 	virtual nlohmann::json save() = 0;
 

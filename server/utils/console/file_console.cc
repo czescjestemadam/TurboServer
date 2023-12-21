@@ -43,7 +43,7 @@ std::string FileConsole::stripColors(const std::string& str)
 
 	for (int i = 0; i < 1024; i++)
 	{
-		ulong pos = ret.find("§");
+		const ulong pos = ret.find("§");
 		if (pos < ret.length())
 			ret.erase(pos, 3);
 	}
@@ -72,10 +72,10 @@ void FileConsole::writerLoop()
 
 void FileConsole::updateOfs()
 {
-	std::time_t t = std::time(nullptr);
+	const std::time_t t = std::time(nullptr);
 	std::tm* now = std::localtime(&t);
 
-	std::string nextFile = std::format("{}-{}-{}.log", now->tm_year + 1900, now->tm_mon + 1, now->tm_mday);
+	const std::string nextFile = std::format("{}-{}-{}.log", now->tm_year + 1900, now->tm_mon + 1, now->tm_mday);
 
 	if (file != nextFile)
 	{

@@ -3,7 +3,7 @@
 Identifier::Identifier(const std::string& str)
 {
 	bool spaceSet = false;
-	for (char c : str)
+	for (const char c : str)
 	{
 		if (c == ':')
 		{

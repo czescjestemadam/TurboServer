@@ -2,8 +2,6 @@
 #include "terminal_console.hh"
 #include "file_console.hh"
 
-#include <vector>
-
 namespace ConsoleHandler
 {
 	static TerminalConsole terminalConsole;

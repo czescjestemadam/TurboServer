@@ -1,6 +1,5 @@
 #include "nbt_tag_primitive.hh"
 
-#include <iostream>
 #include <netinet/in.h>
 
 // byte
@@ -216,7 +215,7 @@ void NbtTagString::read(PacketBuff& buff, bool name)
 	if (name)
 		readName(buff);
 
-	ushort len = ntohs(buff.readShortU());
+	const ushort len = ntohs(buff.readShortU());
 
 	char cstr[len + 1];
 	buff.readBytes(reinterpret_cast<byte_t*>(cstr), len);

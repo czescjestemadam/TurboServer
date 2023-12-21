@@ -1,7 +1,6 @@
 #pragma once
 #include "group.hh"
 #include "server/config/permissions_config.hh"
-#include "server/auth/game_profile.hh"
 
 #include <vector>
 
