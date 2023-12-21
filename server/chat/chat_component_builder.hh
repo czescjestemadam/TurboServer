@@ -1,8 +1,5 @@
 #pragma once
-#include "text_chat_component.hh"
-#include "keybind_chat_component.hh"
-#include "translation_chat_component.hh"
-#include "score_chat_component.hh"
+#include "chat_component.hh"
 
 template<class T, class Arg>
 class ChatComponentBuilder
