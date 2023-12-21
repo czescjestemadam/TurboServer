@@ -10,6 +10,8 @@ protected:
 	sockaddr_in addr{};
 
 public:
+	virtual ~Socket() = default;
+
 	virtual void create();
 	void close() const;
 
