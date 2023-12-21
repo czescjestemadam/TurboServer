@@ -10,13 +10,13 @@
 class ChatComponent
 {
 public:
-	bool bold;
-	bool italic;
-	bool underline;
-	bool strikethrough;
-	bool obfuscated;
-	ChatFont* font;
-	ChatFormat* color;
+	bool bold = false;
+	bool italic = false;
+	bool underline = false;
+	bool strikethrough = false;
+	bool obfuscated = false;
+	ChatFont* font = nullptr;
+	ChatFormat* color = nullptr;
 	std::string insertion; // text to insert in chat on click
 
 	ClickEvent clickEvent;
