@@ -270,6 +270,11 @@ add_executable(TurboServer
 	server/utils/png.hh
 	server/server_status.cc
 	server/server_status.hh
+	server/placeholders/placeholder_manager.cc
+	server/placeholders/placeholder_manager.hh
+	server/placeholders/iplaceholder.hh
+	server/placeholders/players/playercount_placeholder.cc
+	server/placeholders/players/playercount_placeholder.hh
 )
 
 target_link_libraries(TurboServer z crypto)

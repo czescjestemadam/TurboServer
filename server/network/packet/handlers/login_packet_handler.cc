@@ -78,7 +78,7 @@ void LoginPacketHandler::handleLoginStart(PlayerSocket* sock, Packet& packet)
 	{
 	}
 
-	// create player
+	// create players
 	auto player = std::make_unique<PlayerEntity>(sock);
 	player->profile = profile;
 	sock->player = player.get();
