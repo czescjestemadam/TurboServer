@@ -8,7 +8,7 @@ TurboServer::TurboServer(Logger&& logger, RunArgs&& args) : logger(logger), args
 	if (!instance)
 		instance = this;
 
-	logger.info("Loading");
+	logger.info("Loading TurboServer " + getVersion());
 
 	if (!args.hasFlag("default-configs"))
 		configManager.init("configs");
@@ -154,5 +154,5 @@ const ProtocolVersion& TurboServer::getProtocolVersion()
 
 std::string TurboServer::getVersion()
 {
-	return "0.1";
+	return std::string("v0.1 @") + __DATE__ + ' ' + __TIME__;
 }

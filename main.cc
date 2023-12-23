@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 
 	if (args.hasFlag("help"))
 	{
-		std::cout << "TurboServer v" + TurboServer::getVersion() << "\n\n"
+		std::cout << "TurboServer " + TurboServer::getVersion() << "\n\n"
 				  << "Usage: TurboServer [options]\n\n"
 				  << "Options:\n"
 				  << " --help                 shows help\n"
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	}
 	if (args.hasFlag("ver") || args.hasFlag("version"))
 	{
-		std::cout << "TurboServer v" + TurboServer::getVersion() << '\n';
+		std::cout << "TurboServer " + TurboServer::getVersion() << '\n';
 		return 0;
 	}
 
