@@ -7,12 +7,12 @@
 class Inventory
 {
 	int size;
-	InventoryType type;
+	InventoryType* type;
 	std::string title;
 	std::vector<Item> content;
 
 public:
-	Inventory(int size, const InventoryType& type, const std::string& title);
+	Inventory(int size, InventoryType* type, const std::string& title);
 
 	std::vector<Item>& getContent();
 };

@@ -1,6 +1,6 @@
 #include "inventory.hh"
 
-Inventory::Inventory(int size, const InventoryType& type, const std::string& title) : size(size), type(type), title(title)
+Inventory::Inventory(int size, InventoryType* type, const std::string& title) : size(size), type(type), title(title)
 {
 }
 
