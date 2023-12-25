@@ -275,6 +275,8 @@ add_executable(TurboServer
 	server/placeholders/players/playercount_placeholder.hh
 	server/utils/http/url.cc
 	server/utils/http/url.hh
+	server/utils/http/http_status_code.cc
+	server/utils/http/http_status_code.hh
 )
 
 target_link_libraries(TurboServer z crypto ssl)
