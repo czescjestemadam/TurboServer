@@ -203,8 +203,6 @@ add_executable(TurboServer
 	server/chat/event/entity_hover_event.hh
 	server/auth/mojang/mojang_api.cc
 	server/auth/mojang/mojang_api.hh
-	server/utils/rest/rest.cc
-	server/utils/rest/rest.hh
 	server/item/itemable.hh
 	server/item/item_rarity.cc
 	server/item/item_rarity.hh
@@ -275,8 +273,10 @@ add_executable(TurboServer
 	server/placeholders/iplaceholder.hh
 	server/placeholders/players/playercount_placeholder.cc
 	server/placeholders/players/playercount_placeholder.hh
+	server/utils/http/url.cc
+	server/utils/http/url.hh
 )
 
-target_link_libraries(TurboServer z crypto)
+target_link_libraries(TurboServer z crypto ssl)
 
 target_include_directories(TurboServer PRIVATE "./")
