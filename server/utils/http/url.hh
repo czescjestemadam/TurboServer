@@ -17,8 +17,10 @@ public:
 	int getPort() const;
 	const std::string& getPath() const;
 
+	bool isValid() const;
+
 	std::string toString() const;
 
 
-	static Url&& parse(const std::string& str);
+	static Url parse(const std::string& str);
 };
