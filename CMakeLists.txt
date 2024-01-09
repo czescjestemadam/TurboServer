@@ -277,6 +277,10 @@ add_executable(TurboServer
 	server/utils/http/url.hh
 	server/utils/http/http_status_code.cc
 	server/utils/http/http_status_code.hh
+	server/utils/http/ssl/ssl_ctx.cc
+	server/utils/http/ssl/ssl_ctx.hh
+	server/utils/http/ssl/ssl.cc
+	server/utils/http/ssl/ssl.hh
 )
 
 target_link_libraries(TurboServer z crypto ssl)

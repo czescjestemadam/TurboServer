@@ -4,13 +4,19 @@
 
 #include <iostream>
 
-#include <openssl/ssl.h>
+#include "server/utils/http/url.hh"
+#include "server/utils/http/ssl/ssl.hh"
+
+#include <netdb.h>
 
 int main(int argc, char* argv[])
 {
 	const int fd = socket(AF_INET, SOCK_STREAM, 0);
 	if (fd < 0)
 		return 1;
+
+	const Url url = Url::parse("https://dummyjson.com/products/1");
+	hostent* host = gethostbyname2(url.getHostname().c_str(), AF_INET);
 
 	sockaddr_in addr = {
 		AF_INET,
@@ -20,17 +26,17 @@ int main(int argc, char* argv[])
 	if (connect(fd, reinterpret_cast<sockaddr*>(&addr), sizeof(addr)))
 		return 1;
 
-	SSL_CTX* ctx = SSL_CTX_new(TLS_method());
-	SSL* ssl = SSL_new(ctx);
-	SSL_set_fd(ssl, fd);
-	SSL_connect(ssl);
-	const std::string req = "GET /\n\r\n\r";
-	SSL_write(ssl, req.c_str(), static_cast<int>(req.length()));
+	Ssl ssl;
+	ssl.setFd(fd);
+	ssl.connect();
+
+	ssl.write(std::format("GET {}\n\r\n\r", url.getPath()));
 
 	char buff[1024] = { 0 };
-	SSL_read(ssl, buff, sizeof(buff) - 1);
-
+	ssl.read(buff, sizeof(buff) - 1);
 	std::cout << buff << std::endl;
+
+	close(fd);
 
 	// RunArgs args(argc, argv);
 	// args.parse();
