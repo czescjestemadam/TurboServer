@@ -25,7 +25,7 @@ void StatusPacketHandler::disconnect(PlayerSocket* sock, ChatComponent* chat)
 void StatusPacketHandler::handleStatusReq(PlayerSocket* sock, Packet& packet)
 {
 	PacketBuff data;
-	data.writeString(TurboServer::get()->getStatus().json);
+	data.writeString(TurboServer::get()->getStatus().getJson());
 	sock->write({ PacketId::Status::STATUS_RESPONSE, std::move(data) });
 }
 

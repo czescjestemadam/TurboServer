@@ -3,9 +3,9 @@
 
 class ServerStatus
 {
-public:
 	Png icon;
 	std::string json;
+public:
 
 	void loadIcon();
 	void update();
